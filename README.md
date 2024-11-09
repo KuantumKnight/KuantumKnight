@@ -2,7 +2,7 @@
 - 👀 I’m interested in Hacking
 - 🌱 I’m currently learning Malware Analysis
 - 💞️ I’m looking to collaborate on any form of Hacking
-- 📫 How to reach me msarvesh.dav@gmail.om
+- 📫 How to reach me msarvesh.dav@gmail.com
 - 😄 Pronouns: he/him
 - ⚡ Fun fact: ...
 
