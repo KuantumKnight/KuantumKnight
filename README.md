@@ -2,7 +2,7 @@
 - 👀 I’m interested in Ethical Hacking
 - 🌱 I’m currently learning Malware Analysis
 - 📫 How to reach me msarvesh.dav@gmail.com
-- 😄 Pronouns: he/him
+- 😄 Pronouns: Attack/Helicopter
 - ⚡ Fun fact: There is nothing fun about me
 
 <!---
