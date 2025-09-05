@@ -1,7 +1,7 @@
 Hi ![](https://user-images.githubusercontent.com/18350557/176309783-0785949b-9127-417c-8b55-ab5a4333674e.gif) My name is Sarvesh
 ================================================================================================================================
 
-Intrested in cybersecurity
+Interested in cybersecurity
 --------------------------
 
 I’m a fresher at VITC with a strong interest in coding, currently skilled in Python and exploring C++ while continuously learning new technologies to expand my knowledge and build impactful projects.
