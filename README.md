@@ -4,7 +4,7 @@ Hi ![](https://user-images.githubusercontent.com/18350557/176309783-0785949b-912
 Intrested in cybersecurity
 --------------------------
 
-I am a fresher at vitc , knows python and little bit c++ , hoping to learn more
+I’m a fresher at VITC with a strong interest in coding, currently skilled in Python and exploring C++ while continuously learning new technologies to expand my knowledge and build impactful projects.
 
 * 🌍  I'm based in Chennai
 * ✉️  You can contact me at [sarveshmknight@gmail.com](mailto:sarveshmknight@gmail.com)
