@@ -1,6 +1,11 @@
-#  About Me:
-Hi ![](https://user-images.githubusercontent.com/18350557/176309783-0785949b-9127-417c-8b55-ab5a4333674e.gif)  <br>My name is **Sarvesh**<br>====================================================================<br><br>
-### \ Interested in Cybersecurity<br>I’m a fresher at **VIT Chennai** with a strong interest in coding and cybersecurity.  <br>Currently skilled in **Python** and exploring **C++** while continuously learning new technologies to expand my knowledge and build meaningful projects.<br><br>* 🌍  Based in **Chennai, India**  <br>* ✉️  Reach me at [sarveshmknight@gmail.com](mailto:sarveshmknight@gmail.com)  <br>* 🧠  Currently learning **C++** and **React**  <br>* 👥  Open to collaborating on interesting technical projects   
+<div>
+  <img style="100%" src="https://capsule-render.vercel.app/api?type=waving&height=100&section=header&reversal=false&fontSize=70&fontColor=FFFFFF&fontAlign=50&fontAlignY=50&stroke=-&desc=Welcome&descSize=20&descAlign=50&descAlignY=50&theme=cobalt"  />
+</div>
+
+###
+##  About Me:
+Hi !  <br>My name is **Sarvesh M**<br>
+### Interested in Cybersecurity and AI-driven automation<br>I’m a fresher at **VIT Chennai** with a strong interest in coding and cybersecurity.  <br>Currently skilled in **Python** and exploring **C++** while continuously learning new technologies to expand my knowledge and build meaningful projects.<br><br>* 🌍  Based in **Chennai, India**  <br>* ✉️  Reach me at [sarveshmknight@gmail.com](mailto:sarveshmknight@gmail.com)  <br>* 🧠  Currently learning **C++** and **React**  <br>* 👥  Open to collaborating on interesting technical projects   
 
 
 ## 🌐 Socials:
@@ -19,3 +24,17 @@ Hi ![](https://user-images.githubusercontent.com/18350557/176309783-0785949b-912
 
 ---
 [![](https://visitcount.itsvg.in/api?id=KuantumKnight&icon=0&color=0)](https://visitcount.itsvg.in)
+
+
+
+
+<div align="center">
+  <img src="https://visitor-badge.laobi.icu/badge?page_id=KuantumKnight.KuantumKnight&"  />
+</div>
+
+
+<div>
+  <img style="100%" src="https://capsule-render.vercel.app/api?type=waving&height=100&section=footer&reversal=false&fontSize=70&fontColor=FFFFFF&fontAlign=50&fontAlignY=50&stroke=-&animation=fadeIn&descSize=20&descAlign=50&descAlignY=50&theme=cobalt"  />
+</div>
+
+
