@@ -5,7 +5,7 @@
 ###
 ##  About Me:
 Hi !  <br>My name is **Sarvesh M**<br>
-### Interested in Cybersecurity and AI-driven automation<br>I’m a fresher at **VIT Chennai** with a strong interest in coding and cybersecurity.  <br>Currently skilled in **Python** and exploring **C++** while continuously learning new technologies to expand my knowledge and build meaningful projects.<br><br>• 🌍  Based in **Chennai, India**  <br>• ✉️  Reach me at [sarveshmknight@gmail.com](mailto:sarveshmknight@gmail.com)  <br>• 🧠  Currently learning **C++** and **React**  <br>• 👥  Open to collaborating on interesting technical projects   
+### Interested in Cybersecurity and AI-driven automation<br>I’m a fresher at **VIT Chennai** with a strong interest in coding and cybersecurity.  <br>Currently skilled in **Python** and exploring **Typescript** while continuously learning new technologies to expand my knowledge and build meaningful projects.<br><br>• 🌍  Based in **Chennai, India**  <br>• ✉️  Reach me at [sarveshmknight@gmail.com](mailto:sarveshmknight@gmail.com)  <br>• 🧠  Currently learning **Typescript** and **React**  <br>• 👥  Open to collaborating on interesting technical projects   
 
 
 ##  Socials:
