@@ -1,40 +1,72 @@
-<div>
-  <img style="100%" src="https://capsule-render.vercel.app/api?type=waving&height=100&section=header&reversal=false&fontSize=70&fontColor=FFFFFF&fontAlign=50&fontAlignY=50&stroke=-&desc=Welcome&descSize=20&descAlign=50&descAlignY=50&theme=cobalt"  />
+<!--
+  Custom animated terminal header — header.svg is hand-authored (inline CSS @keyframes).
+  Place header.svg at the repo root next to this README.
+-->
+<div align="center">
+
+<img src="./header.svg" alt="Sarvesh M — Security · Systems · Full-Stack" width="100%"/>
+
+<p>
+  <a href="https://www.linkedin.com/in/s4rv3sh-m/"><img src="https://img.shields.io/badge/LinkedIn-0a0e0a?style=flat-square&logo=linkedin&logoColor=00FF9C&labelColor=0a0e0a"/></a>
+  <a href="mailto:sarveshmknight@gmail.com"><img src="https://img.shields.io/badge/Email-0a0e0a?style=flat-square&logo=gmail&logoColor=00FF9C&labelColor=0a0e0a"/></a>
+  <a href="https://github.com/KuantumKnight?tab=repositories"><img src="https://img.shields.io/badge/Repos-0a0e0a?style=flat-square&logo=github&logoColor=00FF9C&labelColor=0a0e0a"/></a>
+  <img src="https://komarev.com/ghpvc/?username=KuantumKnight&style=flat-square&color=00FF9C&label=visitors&labelColor=0a0e0a"/>
+</p>
+
 </div>
 
-###
-##  About Me:
-Hi !  <br>My name is **Sarvesh M**<br>
-### Interested in Cybersecurity and AI-driven automation<br>I’m a fresher at **VIT Chennai** with a strong interest in coding and cybersecurity.  <br>Currently skilled in **Python** and exploring **Typescript** while continuously learning new technologies to expand my knowledge and build meaningful projects.<br><br>• 🌍  Based in **Chennai, India**  <br>• ✉️  Reach me at [sarveshmknight@gmail.com](mailto:sarveshmknight@gmail.com)  <br>• 🧠  Currently learning **Typescript** and **React**  <br>• 👥  Open to collaborating on interesting technical projects   
+<br/>
 
+## <samp>`//` featured work</samp>
 
-##  Socials:
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-%230077B5.svg?logo=linkedin&logoColor=white)](https://www.linkedin.com/in/s4rv3sh-m/) [![email](https://img.shields.io/badge/Email-D14836?logo=gmail&logoColor=white)](mailto:sarveshmknight@gmail.com) 
+| Project | What it is | Stack |
+|:--|:--|:--|
+| [**BugBouncer**](https://github.com/KuantumKnight/bugbouncer) `★65` | Local-first stability engine that detects invisible architectural failures in modern SaaS apps — and hands you the fix | `Next.js 16` · `React 19` · `TS strict` · `SQLite WASM` |
+| [**ZeroDay Heist Writeups**](https://github.com/KuantumKnight/ZeroDayHeist_CTF_Writeups) | Full writeups — 17 challenges, 5 categories, 2026 community CTF | `Forensics` · `RE` · `OSINT` · `Stego` · `Crypto` |
+| [**SNTE**](https://github.com/KuantumKnight/snte-wasm) | Smart Notification Throttling Engine — DSA in pure C, compiled to WASM, deployed live | `C` · `WebAssembly` · `Emscripten` |
+| [**Synthetix**](https://github.com/KuantumKnight/Synthetix) | Duplicate-defect finder & bug-report enhancer | `Python` · `NLP` |
+| [**VulnScanner**](https://github.com/KuantumKnight/Vulnscanner) | Automated vulnerability scanner | `Python` · `Security` |
 
-#  Tech Stack:
-![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54) ![Flask](https://img.shields.io/badge/flask-%23000.svg?style=for-the-badge&logo=flask&logoColor=white) ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB) ![MySQL](https://img.shields.io/badge/mysql-4479A1.svg?style=for-the-badge&logo=mysql&logoColor=white) ![Canva](https://img.shields.io/badge/Canva-%2300C4CC.svg?style=for-the-badge&logo=Canva&logoColor=white) ![Blender](https://img.shields.io/badge/blender-%23F5792A.svg?style=for-the-badge&logo=blender&logoColor=white) ![Adobe Photoshop](https://img.shields.io/badge/adobe%20photoshop-%2331A8FF.svg?style=for-the-badge&logo=adobe%20photoshop&logoColor=white)
-#  GitHub Stats:
-![](https://github-readme-stats.vercel.app/api?username=KuantumKnight&theme=dark&hide_border=true&include_all_commits=true&count_private=false)<br/>
-![](https://nirzak-streak-stats.vercel.app/?user=KuantumKnight&theme=dark&hide_border=true)<br/>
-![](https://github-readme-stats.vercel.app/api/top-langs/?username=KuantumKnight&theme=dark&hide_border=true&include_all_commits=true&count_private=false&layout=compact)
+<br/>
 
-##  GitHub Trophies
-![](https://github-profile-trophy.vercel.app/?username=KuantumKnight&theme=radical&no-frame=true&no-bg=false&margin-w=4)
+## <samp>`//` stack</samp>
 
+<p>
+  <img src="https://img.shields.io/badge/Python-0a0e0a?style=flat-square&logo=python&logoColor=00FF9C"/>
+  <img src="https://img.shields.io/badge/TypeScript-0a0e0a?style=flat-square&logo=typescript&logoColor=00FF9C"/>
+  <img src="https://img.shields.io/badge/C-0a0e0a?style=flat-square&logo=c&logoColor=00FF9C"/>
+  <img src="https://img.shields.io/badge/JavaScript-0a0e0a?style=flat-square&logo=javascript&logoColor=00FF9C"/>
+  <img src="https://img.shields.io/badge/Next.js-0a0e0a?style=flat-square&logo=nextdotjs&logoColor=00FF9C"/>
+  <img src="https://img.shields.io/badge/React-0a0e0a?style=flat-square&logo=react&logoColor=00FF9C"/>
+  <img src="https://img.shields.io/badge/Flask-0a0e0a?style=flat-square&logo=flask&logoColor=00FF9C"/>
+  <img src="https://img.shields.io/badge/WebAssembly-0a0e0a?style=flat-square&logo=webassembly&logoColor=00FF9C"/>
+  <img src="https://img.shields.io/badge/Kali_Linux-0a0e0a?style=flat-square&logo=kalilinux&logoColor=00FF9C"/>
+  <img src="https://img.shields.io/badge/Wireshark-0a0e0a?style=flat-square&logo=wireshark&logoColor=00FF9C"/>
+  <img src="https://img.shields.io/badge/SQLite-0a0e0a?style=flat-square&logo=sqlite&logoColor=00FF9C"/>
+  <img src="https://img.shields.io/badge/Git-0a0e0a?style=flat-square&logo=git&logoColor=00FF9C"/>
+</p>
 
----
-[![](https://visitcount.itsvg.in/api?id=KuantumKnight&icon=0&color=0)](https://visitcount.itsvg.in)
+<br/>
 
-
-
+## <samp>`//` activity</samp>
 
 <div align="center">
-  <img src="https://visitor-badge.laobi.icu/badge?page_id=KuantumKnight.KuantumKnight&"  />
+  <img height="160" src="https://github-readme-stats.vercel.app/api?username=KuantumKnight&show_icons=true&include_all_commits=true&count_private=true&hide_border=true&bg_color=0a0e0a&title_color=00FF9C&icon_color=9FEF00&text_color=c9d1d9&ring_color=00FF9C"/>
+  <img height="160" src="https://github-readme-stats.vercel.app/api/top-langs/?username=KuantumKnight&layout=compact&hide_border=true&langs_count=8&bg_color=0a0e0a&title_color=00FF9C&text_color=c9d1d9"/>
 </div>
 
-
-<div>
-  <img style="100%" src="https://capsule-render.vercel.app/api?type=waving&height=100&section=footer&reversal=false&fontSize=70&fontColor=FFFFFF&fontAlign=50&fontAlignY=50&stroke=-&animation=fadeIn&descSize=20&descAlign=50&descAlignY=50&theme=cobalt"  />
+<!-- contribution graph -->
+<div align="center">
+  <img width="98%" src="https://github-readme-activity-graph.vercel.app/graph?username=KuantumKnight&bg_color=0a0e0a&color=00FF9C&line=00FF9C&point=9FEF00&area=true&hide_border=true&custom_title=Contribution%20Graph"/>
 </div>
 
+<!-- snake animation — generated by the GitHub Action below, committed to the `output` branch -->
+<div align="center">
+  <img width="98%" alt="snake eating contributions" src="https://raw.githubusercontent.com/KuantumKnight/KuantumKnight/output/github-snake-dark.svg"/>
+</div>
 
+<br/>
+
+<div align="center">
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:0a0e0a,100:00FF9C&height=110&section=footer" width="100%"/>
+</div>
