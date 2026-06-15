@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="860" height="368" viewBox="0 0 860 368" role="img" aria-label="terminal hero: sarvesh m, builds things then breaks them">
+  <defs>
+    <style>
+    .ln { opacity:0; animation:rise .5s cubic-bezier(.2,.8,.2,1) forwards; }
+    @keyframes rise { from {opacity:0; transform:translateX(-10px);}
+                       to   {opacity:1; transform:translateX(0);} }
+    .cur { animation:blink 1.05s steps(1,end) infinite; }
+    @keyframes blink { 0%,48%{opacity:1} 49%,100%{opacity:0} }
+    .beam { animation:sweep 2.5s ease-in-out .1s 1 both; }
+    @keyframes sweep { from{transform:translateX(-80px);opacity:.0}
+                        12%{opacity:.55} 88%{opacity:.55}
+                        to{transform:translateX(860px);opacity:0} }
+    text { font-family:'SFMono-Regular',ui-monospace,'JetBrains Mono','Fira Code','Cascadia Code',Consolas,'Liberation Mono',Menlo,monospace; }
+    </style>
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="6" result="b"/>
+      <feComponentTransfer in="b" result="b2"><feFuncA type="linear" slope="0.5"/></feComponentTransfer>
+      <feMerge><feMergeNode in="b2"/></feMerge>
+    </filter>
+    <pattern id="scan" width="3" height="4" patternUnits="userSpaceOnUse">
+      <rect width="3" height="1" y="0" fill="#00ff9c" opacity="0.04"/>
+    </pattern>
+    <linearGradient id="beamg" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="0" stop-color="#00ff9c" stop-opacity="0"/>
+      <stop offset="0.5" stop-color="#00ff9c" stop-opacity="0.9"/>
+      <stop offset="1" stop-color="#00ff9c" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="vign" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#00ff9c" stop-opacity="0.05"/>
+      <stop offset="1" stop-color="#0a0e0d" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- panel -->
+  <rect x="1" y="1" width="858" height="366" rx="12" fill="#0a0e0d" stroke="#16241e" stroke-width="1.5"/>
+  <rect x="1" y="1" width="858" height="120" rx="12" fill="url(#vign)"/>
+
+  <!-- title bar -->
+  <rect x="1" y="1" width="858" height="40" rx="12" fill="#0d1411"/>
+  <rect x="1" y="28" width="858" height="13" fill="#0d1411"/>
+  <line x1="1" y1="41" x2="859" y2="41" stroke="#16241e" stroke-width="1.5"/>
+  <circle cx="24" cy="21" r="6" fill="#ff5f56" opacity="0.85"/>
+  <circle cx="44" cy="21" r="6" fill="#febc2e" opacity="0.85"/>
+  <circle cx="64" cy="21" r="6" fill="#27c93f" opacity="0.85"/>
+  <text x="430" y="26" text-anchor="middle" font-family="'SFMono-Regular',ui-monospace,'JetBrains Mono','Fira Code','Cascadia Code',Consolas,'Liberation Mono',Menlo,monospace" font-size="13" fill="#5c6b64">knight@kuantum: ~/profile — zsh</text>
+
+  <!-- scanlines -->
+  <rect x="2" y="42" width="856" height="324" fill="url(#scan)"/>
+
+  <!-- one-shot scan beam during boot -->
+  <g class="beam"><rect x="0" y="42" width="60" height="324" fill="url(#beamg)" opacity="0.5"/></g>
+
+  <!-- body -->
+  <g class="ln" style="animation-delay:0.15s"><text x="30" y="88" font-size="17" font-weight="500"><tspan fill="#00ff9c" font-weight="700">knight@kuantum</tspan><tspan fill="#5c6b64">:</tspan><tspan fill="#5ef2ff">~</tspan><tspan fill="#5c6b64">$ </tspan><tspan fill="#e6f2ec">./whoami --proof</tspan></text></g><g class="ln" style="animation-delay:0.55s"><text x="30" y="118" font-size="17" font-weight="500"><tspan fill="#5c6b64">[*] </tspan><tspan fill="#e6f2ec">resolving identity </tspan><tspan fill="#5c6b64">··········· </tspan><tspan fill="#00ff9c" font-weight="700">ok</tspan></text></g><g class="ln" style="animation-delay:0.95s"><text x="30" y="148" font-size="17" font-weight="500"><tspan fill="#00ff9c">role  </tspan><tspan fill="#5c6b64"> : </tspan><tspan fill="#e6f2ec">security · systems · full-stack</tspan></text></g><g class="ln" style="animation-delay:1.35s"><text x="30" y="178" font-size="17" font-weight="500"><tspan fill="#00ff9c">mode  </tspan><tspan fill="#5c6b64"> : </tspan><tspan fill="#e6f2ec">builds things, then breaks them</tspan></text></g><g class="ln" style="animation-delay:1.75s"><text x="30" y="208" font-size="17" font-weight="500"><tspan fill="#00ff9c">proof </tspan><tspan fill="#5c6b64"> : </tspan><tspan fill="#e6f2ec">bugbouncer </tspan><tspan fill="#5ef2ff" font-weight="700">65★</tspan><tspan fill="#5c6b64">  ·  </tspan><tspan fill="#e6f2ec">17 ctf flags</tspan><tspan fill="#5c6b64">  ·  </tspan><tspan fill="#e6f2ec">C→wasm</tspan></text></g><g class="ln" style="animation-delay:2.15s"><text x="30" y="238" font-size="17" font-weight="500"><tspan fill="#00ff9c">[+] </tspan><tspan fill="#00ff9c" font-weight="700">access granted</tspan></text></g>
+  <g class="ln name" style="animation-delay:2.7s"><text x="30" y="314" font-size="40" font-weight="700" fill="#00ff9c" filter="url(#glow)">sarvesh m</text><text x="30" y="314" font-size="40" font-weight="700" fill="#00ff9c">sarvesh m<tspan class="cur" fill="#00ff9c"> █</tspan></text><text x="832" y="314" text-anchor="end" font-size="15" font-weight="500" fill="#5c6b64">//KuantumKnight · builds + breaks</text></g>
+</svg>
