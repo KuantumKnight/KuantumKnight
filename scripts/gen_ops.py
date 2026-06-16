@@ -23,7 +23,7 @@ def build():
         events = [{"name": "KuantumKnight", "date": d["generated_date"],
                    "desc": "the readme", "stars": 1, "lang": ""}]
 
-    rows, y = [], 68
+    rows, y = [], 60
     for e in events:
         mmdd = e["date"][5:] if e.get("date") else "--"
         name = trunc(e["name"], 22)
@@ -37,9 +37,9 @@ def build():
             f'<tspan fill="{WHITE}">{esc(name)}</tspan>'
             f'<tspan fill="{CYAN}">{esc(star)}</tspan>'
             f'</text>'
-            f'<text x="78" y="{y+17}" font-size="11" fill="{GREY}" font-family="{MONO}">{esc(meta)}</text>'
+            f'<text x="78" y="{y+15}" font-size="11" fill="{GREY}" font-family="{MONO}">{esc(meta)}</text>'
         )
-        y += 33
+        y += 31
 
     svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" role="img" aria-label="recent activity feed">
   <rect x="1" y="1" width="{W-2}" height="{H-2}" rx="10" fill="{BG}" stroke="{BORDER}" stroke-width="1.5"/>

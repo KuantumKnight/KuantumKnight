@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="860" height="168" viewBox="0 0 860 168" role="img" aria-label="synthetix — finds duplicate defects and rewrites weak bug reports into ones engineers actually act on.">
+  <defs>
+    <linearGradient id="shim1" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="0" stop-color="#00ff9c" stop-opacity="0"/>
+      <stop offset="0.5" stop-color="#00ff9c" stop-opacity="0.06"/>
+      <stop offset="1" stop-color="#00ff9c" stop-opacity="0"/>
+    </linearGradient>
+    <clipPath id="cclip1"><rect x="1" y="1" width="858" height="166" rx="10"/></clipPath>
+  </defs>
+
+  <rect x="1" y="1" width="858" height="166" rx="10" fill="#0a0e0d" stroke="#16241e" stroke-width="1.5"/>
+  <rect x="2" y="2" width="5" height="164" fill="#00ff9c" opacity="0.85">
+    <animate attributeName="opacity" values="0.85;0.4;0.85" dur="3s" repeatCount="indefinite"/>
+  </rect>
+
+  <!-- watermark icon -->
+  <g opacity="0.10" transform="translate(705,30) scale(4.5)" fill="none" stroke="#00ff9c" stroke-width="0.55" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2" /> <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" /></g>
+
+  <!-- index -->
+  <text x="34" y="86" font-size="46" font-weight="700" fill="#00ff9c" fill-opacity="0.16" font-family="'SFMono-Regular',ui-monospace,'JetBrains Mono','Fira Code','Cascadia Code',Consolas,'Liberation Mono',Menlo,monospace">02</text>
+
+  <!-- title + repo -->
+  <text x="92" y="48" font-size="22" font-weight="700" fill="#00ff9c" font-family="'SFMono-Regular',ui-monospace,'JetBrains Mono','Fira Code','Cascadia Code',Consolas,'Liberation Mono',Menlo,monospace">synthetix</text>
+  <text x="92" y="70" font-size="12" fill="#5c6b64" font-family="'SFMono-Regular',ui-monospace,'JetBrains Mono','Fira Code','Cascadia Code',Consolas,'Liberation Mono',Menlo,monospace">› github.com/KuantumKnight/Synthetix</text>
+
+  <!-- brief -->
+  <text x="92" y="96" font-size="13" fill="#e6f2ec" font-family="'SFMono-Regular',ui-monospace,'JetBrains Mono','Fira Code','Cascadia Code',Consolas,'Liberation Mono',Menlo,monospace">finds duplicate defects and rewrites weak bug reports into</text><text x="92" y="114" font-size="13" fill="#e6f2ec" font-family="'SFMono-Regular',ui-monospace,'JetBrains Mono','Fira Code','Cascadia Code',Consolas,'Liberation Mono',Menlo,monospace">ones engineers actually act on.</text>
+
+  <!-- chips -->
+  <rect x="92" y="128" width="62" height="20" rx="4" fill="#00ff9c" fill-opacity="0.08" stroke="#00ff9c" stroke-opacity="0.5"/><text x="123" y="142" text-anchor="middle" font-size="11" fill="#00ff9c" font-family="'SFMono-Regular',ui-monospace,'JetBrains Mono','Fira Code','Cascadia Code',Consolas,'Liberation Mono',Menlo,monospace">python</text><rect x="162.4" y="128" width="107" height="20" rx="4" fill="#00ff9c" fill-opacity="0.08" stroke="#00ff9c" stroke-opacity="0.5"/><text x="216" y="142" text-anchor="middle" font-size="11" fill="#00ff9c" font-family="'SFMono-Regular',ui-monospace,'JetBrains Mono','Fira Code','Cascadia Code',Consolas,'Liberation Mono',Menlo,monospace">defect-dedup</text><rect x="277.20000000000005" y="128" width="62" height="20" rx="4" fill="#00ff9c" fill-opacity="0.08" stroke="#00ff9c" stroke-opacity="0.5"/><text x="308" y="142" text-anchor="middle" font-size="11" fill="#00ff9c" font-family="'SFMono-Regular',ui-monospace,'JetBrains Mono','Fira Code','Cascadia Code',Consolas,'Liberation Mono',Menlo,monospace">triage</text>
+
+  <!-- hud brackets + scan shimmer -->
+  <path d="M14,16 L14,8 L26,8" fill="none" stroke="#00ff9c" stroke-opacity="0.5"/>
+  <path d="M846,152 L846,160 L834,160" fill="none" stroke="#00ff9c" stroke-opacity="0.5"/>
+  <g clip-path="url(#cclip1)">
+    <rect x="-200" y="1" width="200" height="166" fill="url(#shim1)">
+      <animate attributeName="x" values="-200;860;860" keyTimes="0;0.6;1" dur="6s" begin="1.3s" repeatCount="indefinite"/>
+    </rect>
+  </g>
+</svg>

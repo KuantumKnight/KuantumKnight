@@ -31,7 +31,7 @@ def bar(y, name, pct):
 
 # keep labels short enough to never crash into the bar track
 ALIASES = {"jupyter notebook": "jupyter", "objective-c": "objc",
-           "javascript": "javascript", "dockerfile": "docker"}
+           "dockerfile": "docker"}
 
 
 def label(name):
@@ -41,10 +41,10 @@ def label(name):
 
 def build():
     d = collect()
-    bars, y = [], 168
+    bars, y = [], 158
     for name, pct in d["langs"][:5]:
         bars.append(bar(y, label(name), pct))
-        y += 24
+        y += 23
 
     svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" role="img" aria-label="live stats: {d['stars']} stars, {d['repos']} repos">
   <rect x="1" y="1" width="{W-2}" height="{H-2}" rx="10" fill="{BG}" stroke="{BORDER}" stroke-width="1.5"/>

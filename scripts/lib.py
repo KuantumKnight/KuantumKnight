@@ -126,7 +126,6 @@ _FALLBACK = {
     "events": [],
 }
 
-
 def collect():
     """gather everything once, memoized for the whole build run."""
     global _CACHE
@@ -146,56 +145,153 @@ def collect():
     repos = _api(f"/users/{LOGIN}/repos?per_page=100&sort=pushed")
     if isinstance(repos, list) and repos:
         own = [r for r in repos if not r.get("fork")]
-        d["stars"] = sum(r.get("stargazers_count", 0) for r in repos)
+
+        # count stars on repos you actually authored, not forks you starred-by-proxy
+        d["stars"] = sum(r.get("stargazers_count", 0) for r in own)
+
         for r in repos:
             if r.get("name", "").lower() == "bugbouncer":
-                d["bugbouncer_stars"] = r.get("stargazers_count",
-                                              d["bugbouncer_stars"])
-        # language breakdown by actual code bytes (the /languages endpoint),
-        # not repo disk size — so C/wasm work is counted fairly.
+                d["bugbouncer_stars"] = r.get(
+                    "stargazers_count",
+                    d["bugbouncer_stars"]
+                )
+
+        # language breakdown by actual code bytes
         bytes_by_lang = {}
+
         for r in own[:25]:
             ld = _api(f"/repos/{LOGIN}/{r['name']}/languages")
+
             if isinstance(ld, dict):
                 for k, v in ld.items():
                     bytes_by_lang[k] = bytes_by_lang.get(k, 0) + v
-        if not bytes_by_lang:  # fallback: coarse, by primary language + disk size
+
+        if not bytes_by_lang:
             for r in own[:30]:
                 lang = r.get("language")
+
                 if lang:
-                    bytes_by_lang[lang] = bytes_by_lang.get(lang, 0) + max(
-                        r.get("size", 1), 1)
+                    bytes_by_lang[lang] = (
+                        bytes_by_lang.get(lang, 0)
+                        + max(r.get("size", 1), 1)
+                    )
+
         if bytes_by_lang:
             total = sum(bytes_by_lang.values()) or 1
-            ranked = sorted(bytes_by_lang.items(), key=lambda x: -x[1])
-            langs = [(k, round(v * 100 / total)) for k, v in ranked]
-            langs = [(k, p) for k, p in langs if p >= 1][:5]
+
+            ranked = sorted(
+                bytes_by_lang.items(),
+                key=lambda x: -x[1]
+            )
+
+            langs = [
+                (k, round(v * 100 / total))
+                for k, v in ranked
+            ]
+
+            langs = [
+                (k, p)
+                for k, p in langs
+                if p >= 1
+            ][:5]
+
             if langs:
                 d["langs"] = langs
-        # recent ops feed — original repos only (no forks), most-recent first
+
+        # ----------------------------------------------------------
+        # recent ops feed — actual commit activity
+        # ----------------------------------------------------------
+
         feed = []
-        for r in repos:
-            if r.get("fork"):
-                continue
-            feed.append({
-                "name": r.get("name", "?"),
-                "date": (r.get("pushed_at") or "")[:10],
-                "desc": (r.get("description") or "").strip(),
-                "lang": r.get("language") or "",
-                "stars": r.get("stargazers_count", 0),
-            })
-            if len(feed) >= 6:
-                break
+        seen = set()
+
+        events = _api(f"/users/{LOGIN}/events?per_page=100")
+
+        if isinstance(events, list):
+            for e in events:
+                if e.get("type") != "PushEvent":
+                    continue
+
+                full_repo = e.get("repo", {}).get("name", "")
+                owner = full_repo.split("/")[0] if "/" in full_repo else ""
+
+                # show commits pushed to ANY repo, not just your own.
+                # your own repos display as just the repo name; pushes to
+                # someone else's repo display as owner/repo so the source is clear.
+                if owner.lower() == LOGIN.lower():
+                    repo_name = full_repo.split("/")[-1]
+                else:
+                    repo_name = full_repo
+
+                created = (e.get("created_at") or "")[:10]
+
+                commits = e.get("payload", {}).get("commits", [])
+
+                # the events feed only contains pushes you performed, so every
+                # commit here is yours; list newest first (a push payload is
+                # ordered oldest→newest)
+                for c in reversed(commits):
+                    sha = (c.get("sha") or "")[:7]
+
+                    msg = (
+                        (c.get("message") or "")
+                        .splitlines()[0]
+                        .strip()
+                    )
+
+                    key = f"{full_repo}:{sha}"
+
+                    if key in seen:
+                        continue
+
+                    seen.add(key)
+
+                    desc = f"{sha} · {msg}" if sha else msg
+
+                    feed.append({
+                        "name": repo_name,
+                        "date": created,
+                        "desc": desc,
+                        "lang": "",
+                        "stars": None,
+                    })
+
+                    if len(feed) >= 7:
+                        break
+
+                if len(feed) >= 7:
+                    break
+
+        # fallback if events API fails
+        if not feed:
+            for r in repos:
+                if r.get("fork"):
+                    continue
+
+                feed.append({
+                    "name": r.get("name", "?"),
+                    "date": (r.get("pushed_at") or "")[:10],
+                    "desc": (r.get("description") or "").strip(),
+                    "lang": r.get("language") or "",
+                    "stars": r.get("stargazers_count", 0),
+                })
+
+                if len(feed) >= 7:
+                    break
+
         d["events"] = feed
 
     # contributions (scraped, no token)
     cal = _scrape_contributions() or _synthetic_calendar()
+
     d["calendar"] = cal
-    d["contrib_total"] = sum(1 for c in cal if c.get("level", 0) > 0)
+    d["contrib_total"] = sum(
+        1 for c in cal
+        if c.get("level", 0) > 0
+    )
 
     _CACHE = d
     return d
-
 
 # -------------------------------------------------------------- svg utils ----
 
