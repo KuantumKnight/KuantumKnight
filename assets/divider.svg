@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="860" height="22" viewBox="0 0 860 22" role="img" aria-label="divider">
+  <defs>
+    <linearGradient id="pkt" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="0" stop-color="#d8fff0" stop-opacity="0"/>
+      <stop offset="0.5" stop-color="#d8fff0" stop-opacity="1"/>
+      <stop offset="1" stop-color="#d8fff0" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <line x1="0" y1="11" x2="860" y2="11" stroke="#00ff9c" stroke-opacity="0.18" stroke-width="1"/>
+  <path d="M423,11 L430,5 L437,11 L430,17 Z" fill="#0a0e0d" stroke="#00ff9c" stroke-opacity="0.6"/>
+  <rect x="0" y="10" width="90" height="2" fill="url(#pkt)">
+    <animate attributeName="x" values="-90;860;860" keyTimes="0;0.7;1" dur="5s" repeatCount="indefinite"/>
+  </rect>
+</svg>
