@@ -21,7 +21,7 @@ LH = 30                # line height
 def line(y, delay, segs, size=17, weight=500):
     """one reveal-on-load text line built from coloured tspans."""
     tspans = "".join(
-        f'<tspan fill="{c}"{f" font-weight=\"{w}\"" if w else ""}>{esc(t)}</tspan>'
+        f'<tspan fill="{c}" font-weight="{w}">{esc(t)}</tspan>' if w else f'<tspan fill="{c}">{esc(t)}</tspan>'
         for (t, c, w) in segs
     )
     return (f'<g opacity="0">'
