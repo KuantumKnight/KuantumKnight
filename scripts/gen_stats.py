@@ -5,6 +5,8 @@ a hand-built terminal readout of real numbers (stars, repos, followers, language
 mix), pulled live by the pipeline. deliberately NOT the github-readme-stats card.
 """
 
+from pathlib import Path
+
 from lib import (BG, PANEL, BORDER, GRID, GREEN, CYAN, WHITE, GREY,
                  RED, AMBER, LIME, MONO, esc, write_svg, collect)
 
@@ -41,6 +43,9 @@ def label(name):
 
 def build():
     d = collect()
+    if not d["api_ok"] and Path("assets/stats.svg").exists():
+        print("[stale] keeping assets/stats.svg — GitHub API unavailable")
+        return
     bars, y = [], 158
     for name, pct in d["langs"][:5]:
         bars.append(bar(y, label(name), pct))

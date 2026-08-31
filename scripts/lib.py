@@ -14,27 +14,30 @@ import re
 import urllib.request
 import urllib.error
 from datetime import datetime, timezone
+from pathlib import Path
 
 LOGIN = "KuantumKnight"
 
 # ---------------------------------------------------------------- palette ----
 # signature: neon green on near-black. evolve, don't replace.
-BG        = "#0a0e0d"   # near-black, faint green tint
-PANEL     = "#0d1411"   # slightly lifted panel
-BORDER    = "#16241e"   # hairline border
-GRID      = "#11201a"   # empty contribution cell
-GREEN     = "#00ff9c"   # primary neon
-GREEN_DIM = "#1f8a63"   # dim green (mid intensity)
-GREEN_LO  = "#0f3b2c"   # low intensity
-CYAN      = "#5ef2ff"   # sparing secondary accent (numbers)
-WHITE     = "#e6f2ec"   # bright text
-GREY      = "#5c6b64"   # muted / comments
-RED       = "#ff5f56"   # window dot
-AMBER     = "#febc2e"   # window dot
-LIME      = "#27c93f"   # window dot
+BG        = "#050706"   # ink-black paper
+PANEL     = "#0b0d0c"   # lifted black
+BORDER    = "#30342f"   # photocopy edge
+GRID      = "#171a17"   # empty contribution cell
+GREEN     = "#b7ff2a"   # signal green
+GREEN_DIM = "#6d9b2a"   # dim signal
+GREEN_LO  = "#283818"   # low intensity
+CYAN      = "#67f4d2"   # telemetry accent
+WHITE     = "#eeeade"   # dirty paper
+GREY      = "#858880"   # muted copy
+RED       = "#e63229"   # proofing red
+AMBER     = "#e7b43a"   # secondary mark
+LIME      = "#b7ff2a"   # signal dot
+PAPER     = "#e7e1d3"   # pasted paper
+SILVER    = "#c9cdc8"   # liquid-metal type
 
 # green ramp for contribution intensity (level 0..4)
-RAMP = [GRID, "#0f3b2c", "#11623f", "#159f63", GREEN]
+RAMP = [GRID, "#263517", "#47651d", "#729f22", GREEN]
 
 # universal monospace stack — resolves on the viewer's machine, no web fonts.
 MONO = ("'SFMono-Regular',ui-monospace,'JetBrains Mono','Fira Code',"
@@ -44,6 +47,17 @@ MONO = ("'SFMono-Regular',ui-monospace,'JetBrains Mono','Fira Code',"
 
 _TOKEN = os.environ.get("GITHUB_TOKEN") or os.environ.get("GH_TOKEN")
 _UA = "kuantumknight-profile-pipeline"
+_ROOT = Path(__file__).resolve().parent.parent
+_PROFILE_CACHE = None
+
+
+def profile():
+    """Load hand-maintained profile copy from one source of truth."""
+    global _PROFILE_CACHE
+    if _PROFILE_CACHE is None:
+        with (_ROOT / "profile.json").open(encoding="utf-8") as f:
+            _PROFILE_CACHE = json.load(f)
+    return _PROFILE_CACHE
 
 
 def _req(url, accept="application/vnd.github+json"):
@@ -95,32 +109,17 @@ def _scrape_contributions():
     return cells or None
 
 
-def _synthetic_calendar():
-    """deterministic fallback grid so contrib art renders even offline."""
-    cells = []
-    # 53 weeks x 7 days, a calm believable pattern (no randomness allowed here)
-    for w in range(53):
-        for d in range(7):
-            n = (w * 7 + d)
-            level = (n * 37 % 5)
-            # taper the far past, busier recent
-            if w < 12:
-                level = max(0, level - 2)
-            cells.append({"date": f"w{w}d{d}", "level": level})
-    return cells
-
-
 # ----------------------------------------------------------- aggregation ----
 
 _CACHE = None
 
 # known-good fallbacks (from the live profile) so nothing ships blank
 _FALLBACK = {
-    "repos": 14,
-    "stars": 73,
-    "followers": 13,
-    "following": 13,
-    "bugbouncer_stars": 65,
+    "repos": 0,
+    "stars": 0,
+    "followers": 0,
+    "following": 0,
+    "bugbouncer_stars": None,
     "langs": [("Python", 34), ("TypeScript", 28), ("C", 16),
               ("JavaScript", 14), ("HTML", 8)],
     "events": [],
@@ -133,17 +132,21 @@ def collect():
         return _CACHE
 
     d = dict(_FALLBACK)
+    d["api_ok"] = False
+    d["calendar_ok"] = False
     d["generated"] = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M utc")
     d["generated_date"] = datetime.now(timezone.utc).strftime("%Y-%m-%d")
 
     user = _api(f"/users/{LOGIN}")
     if user:
+        d["api_ok"] = True
         d["followers"] = user.get("followers", d["followers"])
         d["following"] = user.get("following", d["following"])
         d["repos"] = user.get("public_repos", d["repos"])
 
     repos = _api(f"/users/{LOGIN}/repos?per_page=100&sort=pushed")
     if isinstance(repos, list) and repos:
+        d["api_ok"] = True
         own = [r for r in repos if not r.get("fork")]
 
         # count stars on repos you actually authored, not forks you starred-by-proxy
@@ -249,6 +252,7 @@ def collect():
                     desc = f"{sha} · {msg}" if sha else msg
 
                     feed.append({
+                        "kind": "push",
                         "name": repo_name,
                         "date": created,
                         "desc": desc,
@@ -269,6 +273,7 @@ def collect():
                     continue
 
                 feed.append({
+                    "kind": "repo",
                     "name": r.get("name", "?"),
                     "date": (r.get("pushed_at") or "")[:10],
                     "desc": (r.get("description") or "").strip(),
@@ -282,13 +287,12 @@ def collect():
         d["events"] = feed
 
     # contributions (scraped, no token)
-    cal = _scrape_contributions() or _synthetic_calendar()
-
-    d["calendar"] = cal
-    d["contrib_total"] = sum(
-        1 for c in cal
-        if c.get("level", 0) > 0
-    )
+    cal = _scrape_contributions()
+    d["calendar_ok"] = bool(cal)
+    d["calendar"] = cal or []
+    d["contrib_total"] = (sum(
+        1 for c in cal if c.get("level", 0) > 0
+    ) if cal else None)
 
     _CACHE = d
     return d

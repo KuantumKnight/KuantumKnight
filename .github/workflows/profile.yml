@@ -2,14 +2,19 @@ name: Rebuild Profile Assets
 
 on:
   schedule:
-    - cron: "0 */6 * * *"  # Rebuild every 6 hours
+    - cron: "17 3 * * *"    # Rebuild daily; GitHub caches profile imagery anyway
   workflow_dispatch:       # Enable manual trigger from the GitHub Actions tab
   push:
     branches:
       - main
     paths:
       - 'scripts/**'
+      - 'profile.json'
       - '.github/workflows/profile.yml'
+
+concurrency:
+  group: profile-assets
+  cancel-in-progress: true
 
 jobs:
   build:

@@ -9,6 +9,7 @@ cinematic: scanlines, beam glow, HUD ticks. SMIL-driven, no js.
 """
 
 from datetime import datetime, timedelta
+from pathlib import Path
 from lib import (BG, PANEL, BORDER, GRID, GREEN, GREY, RED, AMBER, LIME, RAMP,
                  MONO, write_svg, collect)
 
@@ -62,6 +63,9 @@ def _grid(cal):
 
 def build():
     d = collect()
+    if not d["calendar_ok"] and Path("assets/contrib.svg").exists():
+        print("[stale] keeping assets/contrib.svg — contribution feed unavailable")
+        return
     cells, months = _grid(d["calendar"])
     maxj = max((c[0] for c in cells), default=COLS - 1) or 1
     beam_w = maxj * STRIDE

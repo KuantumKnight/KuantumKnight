@@ -5,6 +5,8 @@ an auto-updating `tail -f` of recent pushes/repos, in-theme. proves you're activ
 without you ever touching it.
 """
 
+from pathlib import Path
+
 from lib import (BG, PANEL, BORDER, GREEN, CYAN, WHITE, GREY,
                  RED, AMBER, LIME, MONO, esc, write_svg, collect)
 
@@ -19,9 +21,13 @@ def trunc(s, n):
 def build():
     d = collect()
     events = d["events"][:7]
+    if not events and Path("assets/ops.svg").exists():
+        print("[stale] keeping assets/ops.svg — activity feed unavailable")
+        return
     if not events:
-        events = [{"name": "KuantumKnight", "date": d["generated_date"],
-                   "desc": "the readme", "stars": 1, "lang": ""}]
+        events = [{"kind": "repo", "name": "KuantumKnight",
+                   "date": d["generated_date"], "desc": "data unavailable",
+                   "stars": None, "lang": ""}]
 
     rows, y = [], 60
     for e in events:
@@ -30,10 +36,11 @@ def build():
         meta = e.get("desc") or e.get("lang") or ""
         meta = trunc(meta, 30)
         star = f'  {e["stars"]}★' if e.get("stars") else ""
+        kind = e.get("kind", "repo")
         rows.append(
             f'<text x="20" y="{y}" font-size="13" font-family="{MONO}">'
             f'<tspan fill="{GREY}">[{esc(mmdd)}] </tspan>'
-            f'<tspan fill="{GREEN}">push </tspan>'
+            f'<tspan fill="{GREEN}">{esc(kind)} </tspan>'
             f'<tspan fill="{WHITE}">{esc(name)}</tspan>'
             f'<tspan fill="{CYAN}">{esc(star)}</tspan>'
             f'</text>'
