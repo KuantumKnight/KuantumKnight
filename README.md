@@ -1,12 +1,14 @@
 <!--
-  github.com/KuantumKnight — profile README
+  github.com/KuantumKnight — animated profile README
   Edit identity, projects, stack, and links in profile.json.
   Edit visual behavior in scripts/. Generated output lives in assets/.
 -->
 
 <p align="center">
-  <img src="assets/hero.svg" width="860" alt="Sarvesh M — AI systems, application security, and full-stack engineering">
+  <img src="assets/hero.svg" width="860" alt="Sarvesh M — liquid-chrome game dossier for AI systems, application security, and full-stack engineering">
 </p>
+
+<p align="center"><samp>BUILDING AUTONOMOUS SYSTEMS&nbsp;&nbsp;×&nbsp;&nbsp;BREAKING ASSUMPTIONS&nbsp;&nbsp;×&nbsp;&nbsp;SHIPPING LOCAL-FIRST TOOLS</samp></p>
 
 <!-- selected work -->
 <p align="center"><img src="assets/banner_work.svg" width="860" alt="Selected work — three current builds"></p>
