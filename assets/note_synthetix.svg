@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="860" height="74" viewBox="0 0 860 74" role="img" aria-label="SYNTHETIX: Duplicate-defect finder and bug-report enhancer">
+  <defs>
+    <linearGradient id="scan" x1="0" x2="1"><stop stop-color="#b7ff2a" stop-opacity="0"/><stop offset=".5" stop-color="#b7ff2a" stop-opacity=".22"/><stop offset="1" stop-color="#b7ff2a" stop-opacity="0"/></linearGradient>
+    <clipPath id="clip"><path d="M1 1H859V73H1Z"/></clipPath>
+    <style><![CDATA[
+      .scan { animation: scan 6.00s linear infinite; }
+      .check { animation: check 2.2s steps(2,end) infinite; }
+      .arrow { animation: arrow 1.4s ease-in-out infinite; }
+      @keyframes scan { from{transform:translateX(-180px)} to{transform:translateX(1040px)} }
+      @keyframes check { 0%,72%,100%{opacity:1} 80%{opacity:.28} }
+      @keyframes arrow { 0%,100%{transform:translateX(0)} 50%{transform:translateX(6px)} }
+      @media (prefers-reduced-motion: reduce) { .scan,.check,.arrow { animation:none!important; } .scan { display:none; } }
+    ]]></style>
+  </defs>
+  <path d="M1 1H859V73H1Z" fill="#0b0d0c" stroke="#30342f" stroke-width="2"/>
+  <path d="M1 1H117L96 73H1Z" fill="#050706"/>
+  <path d="M117 1H128L107 73H96Z" fill="#b7ff2a"/>
+  <text x="18" y="30" font-family="'SFMono-Regular',ui-monospace,'JetBrains Mono','Fira Code','Cascadia Code',Consolas,'Liberation Mono',Menlo,monospace" font-size="9" letter-spacing="1.4" fill="#858880">MISSION</text>
+  <text x="18" y="58" font-family="Impact,'Arial Narrow',sans-serif" font-size="31" fill="#b7ff2a">03</text>
+  <text x="143" y="31" font-family="Impact,'Arial Narrow',sans-serif" font-size="25" letter-spacing="1" fill="#eeeade">SYNTHETIX</text>
+  <text x="144" y="54" font-family="'SFMono-Regular',ui-monospace,'JetBrains Mono','Fira Code','Cascadia Code',Consolas,'Liberation Mono',Menlo,monospace" font-size="11" fill="#858880">Duplicate-defect finder and bug-report enhancer</text>
+  <g class="check">
+    <rect x="701" y="18" width="118" height="38" fill="#050706" stroke="#b7ff2a"/>
+    <text x="760" y="42" text-anchor="middle" font-family="'SFMono-Regular',ui-monospace,'JetBrains Mono','Fira Code','Cascadia Code',Consolas,'Liberation Mono',Menlo,monospace" font-size="10" font-weight="700" letter-spacing="1" fill="#b7ff2a">[✓] UNLOCKED</text>
+  </g>
+  <g class="arrow" fill="none" stroke="#b7ff2a" stroke-width="2"><path d="M826 26l12 11-12 11"/></g>
+  <g clip-path="url(#clip)"><rect class="scan" x="-180" width="130" height="74" fill="url(#scan)" transform="skewX(-18)"/></g>
+</svg>

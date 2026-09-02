@@ -1,15 +1,39 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="860" height="62" viewBox="0 0 860 62" role="img" aria-label="field notes: writeups and earlier systems">
+<svg xmlns="http://www.w3.org/2000/svg" width="860" height="68" viewBox="0 0 860 68" role="img" aria-label="field notes: missions cleared / proof archive">
   <defs>
-    <filter id="rough"><feTurbulence baseFrequency=".8" numOctaves="2" seed="9" result="n"/><feBlend in="SourceGraphic" in2="n" mode="multiply"/></filter>
+    <pattern id="speed" width="18" height="18" patternUnits="userSpaceOnUse" patternTransform="skewX(-24)">
+      <rect width="7" height="18" fill="#eeeade" opacity=".035"/>
+    </pattern>
+    <linearGradient id="beam" x1="0" x2="1">
+      <stop offset="0" stop-color="#b7ff2a" stop-opacity="0"/>
+      <stop offset=".5" stop-color="#b7ff2a" stop-opacity=".58"/>
+      <stop offset="1" stop-color="#b7ff2a" stop-opacity="0"/>
+    </linearGradient>
+    <clipPath id="frame"><rect x="1" y="1" width="858" height="66"/></clipPath>
+    <style><![CDATA[
+      .beam { animation: beam 5.4s cubic-bezier(.2,.7,.2,1) infinite; }
+      .pulse { animation: pulse 1.7s steps(2,end) infinite; }
+      .tick { animation: tick 2.8s steps(4,end) infinite; }
+      @keyframes beam { 0%{transform:translateX(-230px);opacity:0} 12%{opacity:1} 72%{transform:translateX(1040px);opacity:.8} 73%,100%{transform:translateX(1040px);opacity:0} }
+      @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.25} }
+      @keyframes tick { 0%,100%{transform:translateX(0)} 50%{transform:translateX(7px)} }
+      @media (prefers-reduced-motion: reduce) { .beam,.pulse,.tick { animation:none!important; } .beam { display:none; } }
+    ]]></style>
   </defs>
-  <rect width="860" height="62" fill="#050706"/>
-  <path d="M4 12L362 7 369 52 10 57Z" fill="#e7e1d3"/>
-  <path d="M376 31H842" stroke="#eeeade" stroke-opacity=".28"/>
-  <path d="M376 25H612" stroke="#e63229" stroke-width="3"/>
-  <text x="20" y="45" font-family="Impact,'Arial Narrow',sans-serif" font-size="31"
-        letter-spacing="2" fill="#050706">FIELD NOTES</text>
-  <text x="385" y="50" font-family="'SFMono-Regular',ui-monospace,'JetBrains Mono','Fira Code','Cascadia Code',Consolas,'Liberation Mono',Menlo,monospace" font-size="11" fill="#858880">writeups and earlier systems</text>
-  <text x="830" y="24" text-anchor="end" font-family="'SFMono-Regular',ui-monospace,'JetBrains Mono','Fira Code','Cascadia Code',Consolas,'Liberation Mono',Menlo,monospace" font-size="17"
-        letter-spacing="4" fill="#e63229"></text>
-  <rect x="4" y="2" width="852" height="58" fill="none" stroke="#30342f" stroke-dasharray="2 7"/>
+  <rect x="1" y="1" width="858" height="66" fill="#050706" stroke="#30342f" stroke-width="2"/>
+  <rect x="1" y="1" width="858" height="66" fill="url(#speed)"/>
+  <path d="M1 8L322 8 295 60H1Z" fill="#e7e1d3"/>
+  <path d="M300 8H375L347 60H272Z" fill="#e63229"/>
+  <path d="M365 34H838" stroke="#eeeade" stroke-opacity=".24"/>
+  <path d="M365 28H610" stroke="#b7ff2a" stroke-width="3"/>
+  <g class="tick">
+    <path d="M626 24l12 10-12 10M646 24l12 10-12 10M666 24l12 10-12 10" fill="none" stroke="#e63229" stroke-width="2"/>
+  </g>
+  <text x="18" y="46" font-family="Impact,'Arial Narrow',sans-serif" font-size="33" letter-spacing="2" fill="#050706">// FIELD NOTES</text>
+  <text x="381" y="53" font-family="'SFMono-Regular',ui-monospace,'JetBrains Mono','Fira Code','Cascadia Code',Consolas,'Liberation Mono',Menlo,monospace" font-size="10.5" letter-spacing=".8" fill="#858880">MISSIONS CLEARED / PROOF ARCHIVE</text>
+  <g class="pulse">
+    <circle cx="824" cy="19" r="3.5" fill="#b7ff2a"/>
+    <text x="814" y="22" text-anchor="end" font-family="'SFMono-Regular',ui-monospace,'JetBrains Mono','Fira Code','Cascadia Code',Consolas,'Liberation Mono',Menlo,monospace" font-size="9" letter-spacing="1" fill="#b7ff2a">LIVE</text>
+  </g>
+  <text x="838" y="53" text-anchor="end" font-family="'SFMono-Regular',ui-monospace,'JetBrains Mono','Fira Code','Cascadia Code',Consolas,'Liberation Mono',Menlo,monospace" font-size="15" letter-spacing="3" fill="#e63229">03/03</text>
+  <g clip-path="url(#frame)"><rect class="beam" x="-230" y="0" width="180" height="68" fill="url(#beam)" transform="skewX(-24)"/></g>
 </svg>

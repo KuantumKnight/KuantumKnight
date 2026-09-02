@@ -79,11 +79,9 @@ def build():
         if lvl >= 1:                                   # reveal to true shade
             begin = round((col / maxj) * SWEEP * P, 3)
             reveal.append(
-                f'<rect x="{x}" y="{y}" width="{CELL}" height="{CELL}" rx="2.5" '
-                f'fill="{RAMP[min(lvl,4)]}" opacity="0">'
-                f'<animate attributeName="opacity" values="0;1;0;0" '
-                f'keyTimes="0;0.03;{DECAY};1" dur="{P}s" begin="{begin}s" '
-                f'repeatCount="indefinite"/></rect>')
+                f'<rect class="reveal" style="animation-delay:{begin}s" '
+                f'x="{x}" y="{y}" width="{CELL}" height="{CELL}" rx="2.5" '
+                f'fill="{RAMP[min(lvl,4)]}" opacity="0"/>')
 
     # weekday labels (Mon / Wed / Fri, like the og chart)
     wlabels = "".join(
@@ -113,6 +111,15 @@ def build():
       <rect width="3" height="1" fill="{GREEN}" opacity="0.05"/>
     </pattern>
     <clipPath id="gclip"><rect x="{GX-4}" y="{GY-4}" width="{beam_w+CELL+8}" height="{grid_h+4}"/></clipPath>
+    <style><![CDATA[
+      .reveal {{ animation: reveal {P}s linear infinite; }}
+      .beam-scan {{ animation: beamMove {P}s linear infinite; }}
+      .sync {{ animation: sync 1.8s steps(2,end) infinite; }}
+      @keyframes reveal {{ 0%{{opacity:0}} 3%{{opacity:1}} {DECAY*100:.0f}%{{opacity:0}} 100%{{opacity:0}} }}
+      @keyframes beamMove {{ 0%{{transform:translateX(0);opacity:.9}} {SWEEP*100:.0f}%{{transform:translateX({beam_w}px);opacity:.9}} {SWEEP*100+1:.0f}%,100%{{transform:translateX({beam_w}px);opacity:0}} }}
+      @keyframes sync {{ 0%,100%{{opacity:1}} 50%{{opacity:.22}} }}
+      @media (prefers-reduced-motion: reduce) {{ .reveal {{ animation:none!important;opacity:1!important; }} .beam-scan,.sync {{ animation:none!important; }} .beam-scan {{ display:none; }} }}
+    ]]></style>
   </defs>
 
   <rect x="1" y="1" width="{W-2}" height="{H-2}" rx="10" fill="{BG}" stroke="{BORDER}" stroke-width="1.5"/>
@@ -121,8 +128,8 @@ def build():
   <line x1="1" y1="35" x2="{W-1}" y2="35" stroke="{BORDER}" stroke-width="1.5"/>
   <circle cx="22" cy="18" r="5" fill="{RED}" opacity="0.85"/>
   <circle cx="40" cy="18" r="5" fill="{AMBER}" opacity="0.85"/>
-  <circle cx="58" cy="18" r="5" fill="{LIME}" opacity="0.85"/>
-  <text x="78" y="22" font-size="12" fill="{GREY}" font-family="{MONO}">~/contrib $ ./scan --year</text>
+  <circle class="sync" cx="58" cy="18" r="5" fill="{LIME}" opacity="0.85"/>
+  <text x="78" y="22" font-size="11" letter-spacing=".5" fill="{GREY}" font-family="{MONO}">CONTRIBUTION SCAN // YEAR</text>
   <text x="{W-16}" y="22" text-anchor="end" font-size="12" fill="{GREY}" font-family="{MONO}">{d['contrib_total']} active days</text>
 
   {mlabels}
@@ -134,10 +141,7 @@ def build():
   <!-- per-cell shade reveal + the sweeping beam, clipped to the grid -->
   <g clip-path="url(#gclip)">
     {''.join(reveal)}
-    <g>
-      <animateTransform attributeName="transform" type="translate"
-        values="0 0;{beam_w} 0;{beam_w} 0" keyTimes="0;{SWEEP};1" dur="{P}s" repeatCount="indefinite"/>
-      <animate attributeName="opacity" values="0.9;0.9;0;0" keyTimes="0;{SWEEP};{SWEEP+0.01};1" dur="{P}s" repeatCount="indefinite"/>
+    <g class="beam-scan">
       <rect x="{GX-9}" y="{GY-4}" width="20" height="{grid_h+2}" fill="url(#beam)"/>
       <line x1="{GX+1}" y1="{GY-4}" x2="{GX+1}" y2="{GY+grid_h-2}" stroke="#d8fff0" stroke-width="1.4" opacity="0.9"/>
     </g>

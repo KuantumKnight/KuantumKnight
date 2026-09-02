@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="270" height="68" viewBox="0 0 270 68" role="img" aria-label="github: @KuantumKnight">
+  <defs>
+    <linearGradient id="s" x1="0" x2="1"><stop stop-color="#b7ff2a" stop-opacity="0"/><stop offset=".5" stop-color="#b7ff2a" stop-opacity=".23"/><stop offset="1" stop-color="#b7ff2a" stop-opacity="0"/></linearGradient>
+    <style><![CDATA[
+      .rail { animation: rail 4.4s linear infinite; }
+      .lamp { animation: lamp 1.8s steps(2,end) infinite; animation-delay:0.00s; }
+      @keyframes rail { from{transform:translateX(-100px)} to{transform:translateX(360px)} }
+      @keyframes lamp { 0%,100%{opacity:1} 50%{opacity:.2} }
+      @media (prefers-reduced-motion: reduce) { .rail,.lamp { animation:none!important; } .rail { display:none; } }
+    ]]></style>
+  </defs>
+  <rect x="1" y="1" width="268" height="66" fill="#0b0d0c" stroke="#30342f" stroke-width="2"/>
+  <path d="M1 1H44L32 67H1Z" fill="#b7ff2a"/>
+  <text x="18" y="42" font-family="Impact,'Arial Narrow',sans-serif" font-size="24" fill="#050706">01</text>
+  <circle class="lamp" cx="249" cy="18" r="3.5" fill="#b7ff2a"/>
+  <text x="57" y="27" font-family="'SFMono-Regular',ui-monospace,'JetBrains Mono','Fira Code','Cascadia Code',Consolas,'Liberation Mono',Menlo,monospace" font-size="9" letter-spacing="1.5" fill="#b7ff2a">GITHUB // LINK</text>
+  <text x="57" y="49" font-family="'SFMono-Regular',ui-monospace,'JetBrains Mono','Fira Code','Cascadia Code',Consolas,'Liberation Mono',Menlo,monospace" font-size="10.5" fill="#eeeade">@KuantumKnight</text>
+  <rect class="rail" x="-100" y="0" width="80" height="68" fill="url(#s)" transform="skewX(-20)"/>
+</svg>

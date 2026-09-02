@@ -14,7 +14,7 @@ W, H = 430, 300
 
 
 def kpi(x, value, label):
-    return (f'<text x="{x}" y="86" text-anchor="middle" font-size="30" '
+    return (f'<text class="kpi-value" x="{x}" y="86" text-anchor="middle" font-size="30" '
             f'font-weight="700" fill="{GREEN}" font-family="{MONO}">{esc(value)}</text>'
             f'<text x="{x}" y="104" text-anchor="middle" font-size="11" '
             f'fill="{GREY}" font-family="{MONO}">{esc(label)}</text>')
@@ -26,7 +26,8 @@ def bar(y, name, pct):
     return (
         f'<text x="20" y="{y+12}" font-size="13" fill="{WHITE}" font-family="{MONO}">{esc(name)}</text>'
         f'<rect x="{tx}" y="{y}" width="{tw}" height="14" rx="3" fill="{GRID}"/>'
-        f'<rect x="{tx}" y="{y}" width="{fw}" height="14" rx="3" fill="{GREEN}"/>'
+        f'<rect class="bar-fill" style="animation-delay:{(y-158)*.012:.2f}s" '
+        f'x="{tx}" y="{y}" width="{fw}" height="14" rx="2" fill="{GREEN}"/>'
         f'<text x="{tx+tw+8}" y="{y+12}" font-size="12" fill="{CYAN}" font-family="{MONO}">{pct}%</text>'
     )
 
@@ -52,14 +53,30 @@ def build():
         y += 23
 
     svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" role="img" aria-label="live stats: {d['stars']} stars, {d['repos']} repos">
+  <defs>
+    <linearGradient id="sweep" x1="0" x2="1"><stop stop-color="{GREEN}" stop-opacity="0"/><stop offset=".5" stop-color="{GREEN}" stop-opacity=".14"/><stop offset="1" stop-color="{GREEN}" stop-opacity="0"/></linearGradient>
+    <clipPath id="frame"><rect x="1" y="1" width="{W-2}" height="{H-2}" rx="8"/></clipPath>
+    <style><![CDATA[
+      .kpi-value {{ animation: kpi 2.6s steps(2,end) infinite; }}
+      .bar-fill {{ animation: fill 2.4s cubic-bezier(.18,.76,.2,1) both, breathe 4s ease-in-out infinite 2.4s; transform-box:fill-box; transform-origin:left center; }}
+      .sweep {{ animation: sweep 6.2s linear infinite; }}
+      .status {{ animation: status 1.7s steps(2,end) infinite; }}
+      @keyframes kpi {{ 0%,94%,100%{{opacity:1}} 96%{{opacity:.42}} }}
+      @keyframes fill {{ from{{transform:scaleX(.04)}} to{{transform:scaleX(1)}} }}
+      @keyframes breathe {{ 0%,100%{{opacity:.74}} 50%{{opacity:1}} }}
+      @keyframes sweep {{ from{{transform:translateX(-150px)}} to{{transform:translateX(580px)}} }}
+      @keyframes status {{ 0%,100%{{opacity:1}} 50%{{opacity:.18}} }}
+      @media (prefers-reduced-motion: reduce) {{ .kpi-value,.bar-fill,.sweep,.status {{ animation:none!important; }} .sweep {{ display:none; }} }}
+    ]]></style>
+  </defs>
   <rect x="1" y="1" width="{W-2}" height="{H-2}" rx="10" fill="{BG}" stroke="{BORDER}" stroke-width="1.5"/>
   <rect x="1" y="1" width="{W-2}" height="34" rx="10" fill="{PANEL}"/>
   <rect x="1" y="24" width="{W-2}" height="11" fill="{PANEL}"/>
   <line x1="1" y1="35" x2="{W-1}" y2="35" stroke="{BORDER}" stroke-width="1.5"/>
   <circle cx="22" cy="18" r="5" fill="{RED}" opacity="0.85"/>
   <circle cx="40" cy="18" r="5" fill="{AMBER}" opacity="0.85"/>
-  <circle cx="58" cy="18" r="5" fill="{LIME}" opacity="0.85"/>
-  <text x="{W-16}" y="22" text-anchor="end" font-size="12" fill="{GREY}" font-family="{MONO}">~/stats $ ./metrics --live</text>
+  <circle class="status" cx="58" cy="18" r="5" fill="{LIME}" opacity="0.85"/>
+  <text x="{W-16}" y="22" text-anchor="end" font-size="11" letter-spacing=".6" fill="{GREY}" font-family="{MONO}">TELEMETRY // METRICS --LIVE</text>
 
   {kpi(78, str(d['stars'])+'★', 'stars')}
   {kpi(215, str(d['repos']), 'repos')}
@@ -70,6 +87,7 @@ def build():
   {''.join(bars)}
 
   <text x="20" y="{H-14}" font-size="11" fill="{GREY}" font-family="{MONO}">last sync · {esc(d['generated'])}</text>
+  <g clip-path="url(#frame)"><rect class="sweep" x="-150" y="0" width="100" height="{H}" fill="url(#sweep)" transform="skewX(-18)"/></g>
 </svg>
 '''
     write_svg("assets/stats.svg", svg)

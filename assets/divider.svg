@@ -1,9 +1,13 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="860" height="26" viewBox="0 0 860 26" role="img" aria-label="divider">
-  <rect width="860" height="26" fill="#050706"/>
-  <path d="M0 13H860" stroke="#eeeade" stroke-opacity=".2" stroke-dasharray="3 7"/>
-  <path d="M-120 11H0L20 13 0 15H-120Z" fill="#b7ff2a">
-    <animate attributeName="d" values="M-120 11H0L20 13 0 15H-120Z;M740 11H840L860 13 840 15H740Z;M740 11H840L860 13 840 15H740Z" keyTimes="0;.72;1" dur="5.5s" repeatCount="indefinite"/>
-  </path>
-  <rect x="407" y="5" width="46" height="16" fill="#e63229" transform="rotate(-3 430 13)"/>
-  <text x="430" y="17" text-anchor="middle" font-family="'SFMono-Regular',ui-monospace,'JetBrains Mono','Fira Code','Cascadia Code',Consolas,'Liberation Mono',Menlo,monospace" font-size="9" fill="#e7e1d3">KK-07</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="860" height="30" viewBox="0 0 860 30" role="img" aria-label="animated speed divider">
+  <defs><style><![CDATA[
+    .dash { animation: dash 3.8s linear infinite; }
+    .tag { animation: tag 2.7s steps(2,end) infinite; }
+    @keyframes dash { from{transform:translateX(-260px)} to{transform:translateX(900px)} }
+    @keyframes tag { 0%,92%,100%{transform:translateX(0)} 94%{transform:translateX(-3px)} 96%{transform:translateX(3px)} }
+    @media (prefers-reduced-motion: reduce) { .dash,.tag { animation:none!important; } }
+  ]]></style></defs>
+  <rect width="860" height="30" fill="#050706"/>
+  <path d="M0 15H860" stroke="#eeeade" stroke-opacity=".2" stroke-dasharray="3 8"/>
+  <g class="dash" fill="#b7ff2a"><path d="M-260 11h86l18 4-18 4h-86zM-145 11h42l18 4-18 4h-42z"/></g>
+  <g class="tag"><path d="M397 4h66l-8 22h-66z" fill="#e63229"/><text x="426" y="19" text-anchor="middle" font-family="'SFMono-Regular',ui-monospace,'JetBrains Mono','Fira Code','Cascadia Code',Consolas,'Liberation Mono',Menlo,monospace" font-size="9" font-weight="700" fill="#e7e1d3">KK-07</text></g>
 </svg>
