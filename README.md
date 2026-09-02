@@ -5,20 +5,18 @@
 -->
 
 <p align="center">
-  <img src="assets/hero.svg" width="860" alt="Sarvesh M — mechanical chess-knight game dossier for AI systems, application security, and full-stack engineering">
+  <img src="assets/hero.svg" width="860" alt="Sarvesh M — liquid-chrome game dossier for AI systems, application security, and full-stack engineering">
 </p>
+
+<p align="center"><samp>BUILDING AUTONOMOUS SYSTEMS&nbsp;&nbsp;×&nbsp;&nbsp;BREAKING ASSUMPTIONS&nbsp;&nbsp;×&nbsp;&nbsp;SHIPPING LOCAL-FIRST TOOLS</samp></p>
 
 <!-- selected work -->
 <p align="center"><img src="assets/banner_work.svg" width="860" alt="Selected work — three current builds"></p>
 
 <p align="center">
-  <a href="https://github.com/KuantumKnight/lotusMCP"><img src="assets/card_lotusmcp.svg" width="860" alt="LotusMCP — autonomous CTF case-management MCP server"></a>
-</p>
-<p align="center">
-  <a href="https://github.com/KuantumKnight/bugbouncer"><img src="assets/card_bugbouncer.svg" width="860" alt="bugbouncer — local-first stability engine"></a>
-</p>
-<p align="center">
-  <a href="https://github.com/KuantumKnight/lily"><img src="assets/card_lily.svg" width="860" alt="lily — local-first personal AI operating-system layer"></a>
+  <a href="https://github.com/KuantumKnight/lotusMCP"><img src="assets/card_lotusmcp.svg" width="270" alt="LotusMCP — autonomous CTF case-management MCP server"></a>
+  <a href="https://github.com/KuantumKnight/bugbouncer"><img src="assets/card_bugbouncer.svg" width="270" alt="bugbouncer — local-first stability engine"></a>
+  <a href="https://github.com/KuantumKnight/lily"><img src="assets/card_lily.svg" width="270" alt="lily — local-first personal AI operating-system layer"></a>
 </p>
 
 <p align="center"><img src="assets/divider.svg" width="860" alt=""></p>
@@ -27,13 +25,14 @@
 <p align="center"><img src="assets/banner_notes.svg" width="860" alt="Field notes — writeups and earlier systems"></p>
 
 <p align="center">
-  <a href="https://github.com/KuantumKnight/BLACKBOX_Writeups"><img src="assets/note_blackbox.svg" width="860" alt="BLACKBOX Writeups — six-module engineering challenge, 6/6 complete"></a>
-</p>
-<p align="center">
-  <a href="https://github.com/KuantumKnight/ZeroDayHeist_CTF_Writeups"><img src="assets/note_zeroday.svg" width="860" alt="ZeroDay Heist — 17 CTF writeups across forensics, reverse engineering, OSINT, steganography, and cryptography"></a>
-</p>
-<p align="center">
-  <a href="https://github.com/KuantumKnight/Synthetix"><img src="assets/note_synthetix.svg" width="860" alt="Synthetix — duplicate-defect finder and bug-report enhancer"></a>
+  <a href="https://github.com/KuantumKnight/BLACKBOX_Writeups"><code>BLACKBOX WRITEUPS</code></a>
+  &nbsp;·&nbsp; six-module engineering challenge, 6/6 complete
+  <br>
+  <a href="https://github.com/KuantumKnight/ZeroDayHeist_CTF_Writeups"><code>ZERODAY HEIST</code></a>
+  &nbsp;·&nbsp; 17 CTF writeups across forensics, RE, OSINT, steg, and crypto
+  <br>
+  <a href="https://github.com/KuantumKnight/Synthetix"><code>SYNTHETIX</code></a>
+  &nbsp;·&nbsp; duplicate-defect finder and bug-report enhancer
 </p>
 
 <p align="center"><img src="assets/divider.svg" width="860" alt=""></p>
@@ -61,11 +60,23 @@
 <p align="center"><img src="assets/banner_contact.svg" width="860" alt="Contact — direct links"></p>
 
 <p align="center">
-  <a href="https://github.com/KuantumKnight"><img src="assets/contact_github.svg" width="270" alt="GitHub — @KuantumKnight"></a>
-  <a href="mailto:sarveshmknight@gmail.com"><img src="assets/contact_email.svg" width="270" alt="Email — sarveshmknight@gmail.com"></a>
-  <a href="https://www.linkedin.com/in/s4rv3sh-m"><img src="assets/contact_linkedin.svg" width="270" alt="LinkedIn — s4rv3sh-m"></a>
+  <a href="https://github.com/KuantumKnight">
+    <img src="https://img.shields.io/badge/GitHub-@KuantumKnight-050706?style=for-the-badge&logo=github&logoColor=white" alt="GitHub">
+  </a>
+  &nbsp;
+  <a href="mailto:sarveshmknight@gmail.com">
+    <img src="https://img.shields.io/badge/Email-sarveshmknight%40gmail.com-E63229?style=for-the-badge&logo=gmail&logoColor=white" alt="Email">
+  </a>
+  &nbsp;
+  <a href="https://www.linkedin.com/in/s4rv3sh-m">
+    <img src="https://img.shields.io/badge/LinkedIn-s4rv3sh--m-B7FF2A?style=for-the-badge&logo=linkedin&logoColor=050706" alt="LinkedIn">
+  </a>
 </p>
 
 <p align="center">
-  <a href="https://github.com/KuantumKnight/KuantumKnight/blob/main/.github/workflows/profile.yml"><img src="assets/footer.svg" width="860" alt="Profile assets are rendered from profile.json and public GitHub data by profile.yml; if a data source is unavailable, the last successful asset is preserved"></a>
+  <sub>
+    Profile assets are rendered from <code>profile.json</code> and public GitHub data by
+    <a href="https://github.com/KuantumKnight/KuantumKnight/blob/main/.github/workflows/profile.yml"><code>profile.yml</code></a>.
+    If a data source is unavailable, the last successful asset is preserved.
+  </sub>
 </p>

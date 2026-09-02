@@ -1,4 +1,4 @@
-"""hero.svg — animated mechanical-knight game dossier for the profile README."""
+"""hero.svg — animated chrome-knight game dossier for the profile README."""
 
 import base64
 from pathlib import Path
@@ -45,12 +45,12 @@ def build():
     cfg = profile()
     ident = cfg["identity"]
     projects = " / ".join(p["name"].upper() for p in cfg["projects"])
-    art = image_data(ROOT / "assets" / "mechanical-knight-medallion.png")
+    art = image_data(ROOT / "assets" / "chrome-knight-avatar.png")
     frames = [ascii_frame(lines) for lines in ASCII_FRAMES]
 
     svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" role="img" aria-labelledby="heroTitle heroDesc">
-  <title id="heroTitle">{esc(ident['name'])} — mechanical knight developer profile</title>
-  <desc id="heroDesc">Animated street-racing game dossier with a silver chess-knight machine emblem, wanted stars, ASCII telemetry, and current projects.</desc>
+  <title id="heroTitle">{esc(ident['name'])} — chrome knight developer profile</title>
+  <desc id="heroDesc">Animated punk game dossier with a liquid-chrome knight, wanted stars, ASCII helmet, and current projects.</desc>
   <defs>
     <radialGradient id="stage" cx="67%" cy="46%" r="68%">
       <stop offset="0" stop-color="#18220f"/>
@@ -91,7 +91,7 @@ def build():
     <clipPath id="glitchTwo"><path d="M328 173H846V188H328ZM328 309H846V325H328Z"/></clipPath>
     <clipPath id="asciiClip"><rect x="31" y="326" width="337" height="139"/></clipPath>
     <clipPath id="tickerClip"><rect x="398" y="451" width="419" height="17"/></clipPath>
-    <image id="avatarImage" href="{art}" x="328" y="18" width="520" height="478" preserveAspectRatio="xMidYMid slice"/>
+    <image id="avatarImage" href="{art}" x="328" y="18" width="520" height="478" preserveAspectRatio="xMidYMid meet"/>
     <style><![CDATA[
       .avatar {{ animation: avatarFloat 6s ease-in-out infinite; transform-origin: 66% 52%; }}
       .glitch-a {{ animation: glitchA 4.8s steps(1,end) infinite; }}
@@ -137,7 +137,7 @@ def build():
   <text x="31" y="37" font-family="{MONO}" font-size="9" letter-spacing="1.5" fill="{GREY}">PLAYER PROFILE // BUILD 07</text>
   <text x="697" y="483" font-family="{MONO}" font-size="8" letter-spacing="1.2" fill="{GREY}">LOCAL-FIRST / ONLINE</text>
 
-  <!-- generated mechanical chess-knight centerpiece -->
+  <!-- generated liquid-chrome centerpiece -->
   <ellipse cx="615" cy="247" rx="192" ry="206" fill="{GREEN}" opacity=".11" filter="url(#limeGlow)"/>
   <g clip-path="url(#avatarClip)" filter="url(#avatarShadow)">
     <g class="avatar"><use href="#avatarImage"/></g>

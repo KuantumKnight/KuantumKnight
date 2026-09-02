@@ -1,66 +1,52 @@
-# Design QA — KuantumKnight profile README / Most Wanted Runtime
+# Design QA — KuantumKnight profile README v2
 
 ## Evidence
 
-- Selected visual truth: C:\Users\Sarvesh M\.codex\generated_images\01a0617d-4728-7911-9ce6-1a1da798198c\exec-2474f21a-eb5d-4c92-a8b0-b40dbbb6ab7b.png
-- Generated hero focal asset: C:\Users\Sarvesh M\.codex\generated_images\01a0617d-4728-7911-9ce6-1a1da798198c\exec-44c0662a-769d-46de-a111-f914b89ec8f1.png
-- Browser-rendered desktop implementation: C:\Users\Sarvesh M\.codex\visualizations\2026\09\02\01a0617d-4728-7911-9ce6-1a1da798198c\readme-option2-desktop.png
-- Browser-rendered narrow implementation: C:\Users\Sarvesh M\.codex\visualizations\2026\09\02\01a0617d-4728-7911-9ce6-1a1da798198c\readme-option2-mobile.png
-- Combined source/implementation comparison: C:\Users\Sarvesh M\.codex\visualizations\2026\09\02\01a0617d-4728-7911-9ce6-1a1da798198c\readme-option2-comparison.png
-- Source pixels: 864 × 1821.
-- Desktop capture: 1000 × 3600 at device scale 1; rendered README content ends at approximately 2936 px and uses an 860 px asset column.
-- Narrow capture: 430 × 2400 at device scale 1; full-width rows scale down and paired telemetry/contact assets wrap.
-- State: dark GitHub-style surface after a 5000 ms virtual animation budget.
+- Source visual truth: C:\Users\Sarvesh M\.codex\generated_images\01a05403-831c-7ae0-8e89-263a72d010bf\exec-7a354bd6-1b3d-4e86-9b8a-2889a5dbd94a.png
+- Browser-rendered desktop implementation: C:\Users\Sarvesh M\.codex\visualizations\2026\08\30\01a05403-831c-7ae0-8e89-263a72d010bf\readme-v2-desktop-final.png
+- Browser-rendered mobile implementation: C:\Users\Sarvesh M\.codex\visualizations\2026\08\30\01a05403-831c-7ae0-8e89-263a72d010bf\readme-v2-mobile-final.png
+- Combined comparison input: C:\Users\Sarvesh M\.codex\visualizations\2026\08\30\01a05403-831c-7ae0-8e89-263a72d010bf\design-comparison-final.png
+- Source pixels: 1487 × 1058.
+- Desktop capture: 920 × 1100 at device scale 1; the README content column is 860 CSS px.
+- Mobile capture: 420 × 3200 at device scale 1; assets scale or wrap inside the narrow content column.
+- State: dark GitHub-style surface, top of profile, initial animation state.
 
 ## Full-view comparison
 
-The selected reference and latest desktop render were inspected together in one comparison image. The implementation carries over the early-2000s street-racing menu language: black steel, dirty paper, proofing red, chartreuse telemetry, condensed display type, diagonal hazard wedges, full-width project loadout rows, mission-unlocked notes, live telemetry, a contribution scanner, an equipment grid, and compact contact controls.
+The combined board was inspected as one comparison input. The implementation preserves the source's primary hierarchy: chrome knight on the left, condensed identity on the right, vertical handle, dirty-paper role strip, green ASCII signal, five red game stars, and three black/red/paper project posters. The implementation intentionally extends the one-frame concept into a vertically readable GitHub profile rather than compressing telemetry, stack, notes, and contact into the hero.
 
-Per the user's explicit direction, the existing hero composition was retained instead of mirroring the reference's left-image/right-type arrangement. Only its rejected character artwork was replaced. The new focal image is a real generated mechanical chess-knight medallion with the correct industrial subject, crop, palette, and density.
+## Focused region comparison
 
-## Focused implementation checks
-
-- Hero: the generated medallion fills the existing clipped image slot without stretching, halo artifacts, unwanted text, or a human/armor silhouette. Existing identity typography, ASCII console, wanted stars, ticker, glitches, and float motion remain intact.
-- Selected work: all three cards use the existing real poster assets inside horizontal 860 × 190 loadout rows. Titles, repository paths, descriptions, chips, and open affordances are readable and do not collide with diagonal poster masks.
-- Field notes and contact: former plain text and third-party shields were replaced by generated in-theme SVG controls while preserving every destination link and factual label.
-- Telemetry: public metrics and events remain real pipeline data. The anonymous GitHub API rate limit affected several repository-language detail calls during generation, but the fail-soft collector retained valid aggregate output.
-- Motion: all 21 generated SVG assets contain animation, and all 21 contain an explicit prefers-reduced-motion fallback. Motion is decorative and never gates content.
+The desktop capture was inspected at native size for the hero and three poster cards. The generated chrome and engraved project artwork remain sharp at rendered size; transparent edges have no visible halo. Project names, repository paths, descriptions, and stack labels are code-rendered and legible rather than baked into generated imagery. A separate focused comparison was unnecessary after the native desktop inspection because the complete above-the-fold region is visible in the combined board.
 
 ## Required fidelity surfaces
 
-- Fonts and typography: Impact/Arial Narrow fallback plus the existing system monospace stack reproduces the reference's compressed game-menu hierarchy without relying on remote fonts. Long descriptions wrap inside their allocated text zones.
-- Spacing and layout: the desktop hierarchy and section order match the reference. Project rows and mission strips remain aligned to the common 860 px frame. Narrow rendering shows no horizontal overflow, overlap, or broken section stacking.
-- Colors and surfaces: near-black metal, dirty white paper, chartreuse, proofing red, muted steel, thin rules, diagonal cuts, scanlines, and low-opacity grids remain consistent throughout.
-- Image quality: the hero uses the purpose-generated mechanical medallion; project rows retain real poster imagery. No placeholder images, fake avatars, decorative blobs, or stretched bitmap assets remain.
-- Copy and content: all identity, project, field-note, stack, contact, and public activity facts come from profile.json or the existing GitHub collector.
-- Icons: the working-set panel continues using bundled Simple Icons where available. Items without a bundled icon remain factual text modules rather than invented brand marks.
-- Accessibility: every README image has useful alt text, all functional destinations remain standard anchors, layout scales at 430 px, and animated assets provide reduced-motion states with stable visible content.
-- Interaction: project, field-note, contact, and workflow areas remain clickable through README anchors. There is no JavaScript dependency in the shipped README.
+- Fonts and typography: condensed Impact/Arial Narrow fallback and monospace text preserve the source's editorial/game-menu contrast. The implementation is intentionally cleaner than the distressed mock so GitHub text remains readable. No clipping remains in the concise AI SYSTEMS · APPSEC · FULL-STACK strip.
+- Spacing and layout rhythm: 860 px hero and section strips align; three 270 px posters fit the desktop row with balanced gaps. On narrow screens, cards wrap to a single column and telemetry panels stack.
+- Colors and tokens: ink black, dirty paper, liquid silver, signal green, proofing red, and restrained cyan are consistent across generated and live-data panels.
+- Image quality and asset fidelity: the hero uses a real generated transparent chrome-knight asset. Each project uses a real generated poster illustration. No placeholder imagery remains.
+- Copy and content: generic slogans, fake coordinates, QR codes, fake metrics, and invented claims were removed. Visible copy comes from profile.json and public GitHub data.
+- Icons: working-set logos reuse the existing Simple Icons sources. Technologies without a bundled logo use text labels instead of invented marks.
+- Accessibility: README images include descriptive alt text and all project/contact actions are standard links. Motion is decorative and does not gate content. A reduced-motion variant remains optional follow-up polish.
+- Browser/interaction check: the static README preview rendered in headless Chrome with no reported console or asset-loading errors. There is no JavaScript UI; project, field-note, and contact destinations are ordinary anchors in README.md.
 
 ## Comparison history
 
-1. The selected reference established the final system. The previous implementation had three vertical project posters, static field-note/contact content, inconsistent lower-panel motion, and a rejected human-like chrome hero image.
-2. ImageGen produced a standalone mechanical chess-knight machine emblem. The asset was placed into the measured existing hero slot without changing the hero's layout or motion system.
-3. All lower generators were rebuilt around the reference's loadout, mission, telemetry, equipment, and direct-link patterns. The contribution animation was converted to a CSS-driven scan with a reduced-motion state.
-4. Desktop and 430 px renders were checked. The latest desktop render was placed beside the selected source in one comparison input; no visible P0, P1, or P2 mismatch remained after accounting for the user-requested hero-layout exception.
-
-## Verification
-
-- Python generator compilation: passed.
-- Full asset rebuild: passed.
-- SVG XML parse: 21/21 passed.
-- README local image references: 24/24 resolved.
-- Animated assets with reduced-motion fallbacks: 21/21.
-- Desktop and narrow headless-Chrome render: passed.
-- Git whitespace/error check: passed.
+1. Initial implementation: project poster artwork did not render because nested SVG resources were external, and the ASCII strip appeared empty at the initial frame.
+   - Fix: optimized the three generated poster sources and embedded them directly in the standalone card SVGs; added a visible resting ASCII knight while retaining the moving frame.
+   - Post-fix evidence: readme-v2-full-r2.png.
+2. Second pass: the long role label approached the hero's right edge at narrow scale, and the original transparent hero source exceeded its useful display density.
+   - Fix: shortened only the visible label to factual APPSEC, preserved the full accessible role, and downscaled the transparent source from 1024 × 1536 to 620 × 930 while retaining alpha.
+   - Post-fix evidence: readme-v2-desktop-final.png and readme-v2-mobile-final.png.
 
 ## Findings
 
 No actionable P0, P1, or P2 findings remain.
 
-## Follow-up
+## Follow-up polish
 
-- [P3] GitHub's image proxy may briefly show cached SVGs after the push; the repository assets themselves are current.
+- [P3] Add explicit reduced-motion static states inside the animated SVG generators.
+- [P3] Recheck the final profile once merged because GitHub's image proxy can introduce short cache delays.
 
 ## Final result
 
