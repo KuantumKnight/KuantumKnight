@@ -18,27 +18,30 @@ from datetime import datetime, timezone
 LOGIN = "KuantumKnight"
 
 # ---------------------------------------------------------------- palette ----
-# signature: neon green on near-black. evolve, don't replace.
-BG        = "#0a0e0d"   # near-black, faint green tint
-PANEL     = "#0d1411"   # slightly lifted panel
-BORDER    = "#16241e"   # hairline border
-GRID      = "#11201a"   # empty contribution cell
-GREEN     = "#00ff9c"   # primary neon
-GREEN_DIM = "#1f8a63"   # dim green (mid intensity)
-GREEN_LO  = "#0f3b2c"   # low intensity
-CYAN      = "#5ef2ff"   # sparing secondary accent (numbers)
-WHITE     = "#e6f2ec"   # bright text
-GREY      = "#5c6b64"   # muted / comments
-RED       = "#ff5f56"   # window dot
-AMBER     = "#febc2e"   # window dot
-LIME      = "#27c93f"   # window dot
+# signature: noir. ink and silver, one drop of red — never more than one
+# red element per frame.
+INK        = "#0b0b0c"   # the frame
+PANEL      = "#121214"   # slightly lifted surface
+HAIRLINE   = "#26262a"   # rules and borders
+SILVER     = "#d8d5ce"   # primary text
+SILVER_DIM = "#8a877f"   # secondary text
+ASH        = "#55534e"   # captions, muted
+BLOOD      = "#b3261e"   # the single accent
 
-# green ramp for contribution intensity (level 0..4)
-RAMP = [GRID, "#0f3b2c", "#11623f", "#159f63", GREEN]
+# silver ramp for contribution intensity (level 0..4)
+RAMP = ["#161618", "#2e2d2b", "#55534e", "#8a877f", SILVER]
 
-# universal monospace stack — resolves on the viewer's machine, no web fonts.
-MONO = ("'SFMono-Regular',ui-monospace,'JetBrains Mono','Fira Code',"
-        "'Cascadia Code',Consolas,'Liberation Mono',Menlo,monospace")
+# legacy names — kept so generators not yet restyled still build, now in noir.
+BG, BORDER, GRID = INK, HAIRLINE, RAMP[0]
+GREEN, GREEN_DIM, GREEN_LO = SILVER, SILVER_DIM, "#2e2d2b"
+CYAN, WHITE, GREY = SILVER, SILVER, ASH
+RED = AMBER = LIME = BLOOD
+
+# font stacks. the named faces are embedded per-svg via font_css();
+# the rest is a fallback if a renderer ignores embedded fonts.
+SERIF = "'KK Serif','Instrument Serif',Georgia,'Times New Roman',serif"
+MONO = ("'KK Mono','JetBrains Mono','SFMono-Regular',ui-monospace,"
+        "Consolas,'Liberation Mono',Menlo,monospace")
 
 # ----------------------------------------------------------------- fetch ----
 
@@ -298,6 +301,51 @@ def collect():
 def esc(s):
     return (str(s).replace("&", "&amp;").replace("<", "&lt;")
             .replace(">", "&gt;").replace('"', "&quot;"))
+
+
+def font_css(serif=False, italic=False, mono=(400,)):
+    """@font-face rules for only the faces a given svg uses."""
+    import fonts
+    rules = []
+
+    def face(family, b64, weight=400, style="normal"):
+        rules.append(f"@font-face{{font-family:'{family}';font-weight:{weight};"
+                     f"font-style:{style};src:url(data:font/woff2;base64,{b64}) "
+                     f"format('woff2')}}")
+
+    if serif:
+        face("KK Serif", fonts.SERIF_REGULAR)
+    if italic:
+        face("KK Serif", fonts.SERIF_ITALIC, style="italic")
+    for w in mono:
+        face("KK Mono", getattr(fonts, f"MONO_{w}"), weight=w)
+    return f"<style>{''.join(rules)}</style>"
+
+
+def film_defs(w, h, seed=7):
+    """grain + vignette defs shared by every frame. ids: kk-grain, kk-vig."""
+    return (
+        f'<filter id="kk-grain" x="0" y="0" width="100%" height="100%">'
+        f'<feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" '
+        f'seed="{seed}" stitchTiles="stitch"/>'
+        f'<feColorMatrix values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.09 -0.03"/>'
+        f'</filter>'
+        f'<radialGradient id="kk-vig" cx="50%" cy="50%" r="75%">'
+        f'<stop offset="0.55" stop-color="#000" stop-opacity="0"/>'
+        f'<stop offset="1" stop-color="#000" stop-opacity="0.45"/>'
+        f'</radialGradient>'
+    )
+
+
+def film_overlay(w, h, bars=0, vignette=True):
+    """grain (+ vignette for tall frames) on top, plus optional letterbox bars."""
+    out = f'<rect width="{w}" height="{h}" filter="url(#kk-grain)"/>'
+    if vignette:
+        out += f'<rect width="{w}" height="{h}" fill="url(#kk-vig)"/>'
+    if bars:
+        out += (f'<rect width="{w}" height="{bars}" fill="#000"/>'
+                f'<rect y="{h-bars}" width="{w}" height="{bars}" fill="#000"/>')
+    return out
 
 
 def write_svg(path, body):

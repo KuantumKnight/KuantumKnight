@@ -1,62 +1,62 @@
 """
-banner_*.svg + divider.svg — cinematic section headers and a data-stream divider.
+banner_*.svg + divider.svg — film slates between scenes, and a quiet rule.
 
-banners are HUD title bars ('>> SELECTED WORK ────┤ // 3 featured'); the divider
-is a thin rule with a glowing packet that streams across it. used to break the
-README into sections without relying on (un-styleable) markdown headings.
+each slate is a strip of ink with a scene number, a serif title, and a caption,
+exposed once with a slow fade — like a title card cut into the reel. every
+slate carries its own background so it reads on light and dark github themes.
 """
 
-from lib import BG, GREEN, GREY, CYAN, MONO, write_svg
+from lib import (INK, HAIRLINE, SILVER, SILVER_DIM, ASH, BLOOD, SERIF, MONO,
+                 esc, font_css, film_defs, film_overlay, write_svg)
 
-BW, BH = 860, 52
-HOT = "#d8fff0"
+W = 860
 
 
-def banner(fname, title, subtitle):
-    title = title.upper()
-    tx = 14 + len(title) * 13.5 + 40        # where the rule starts after the title
-    ticks = "".join(f'<line x1="{x}" y1="30" x2="{x}" y2="36" stroke="{GREEN}" '
-                    f'stroke-opacity="0.3" stroke-width="1"/>'
-                    for x in range(int(tx) + 20, BW - 180, 26))
-    svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="{BW}" height="{BH}" viewBox="0 0 {BW} {BH}" role="img" aria-label="{title} {subtitle}">
-  <text x="14" y="40" font-size="13" font-weight="700" fill="{GREEN}" font-family="{MONO}">&gt;&gt;</text>
-  <text x="42" y="40" font-size="20" font-weight="700" fill="{GREEN}" font-family="{MONO}" letter-spacing="2">{title}</text>
-  <line x1="{tx}" y1="33" x2="{BW-176}" y2="33" stroke="{GREEN}" stroke-opacity="0.25" stroke-width="1.5"/>
-  {ticks}
-  <rect x="{BW-168}" y="26" width="9" height="9" fill="{GREEN}">
-    <animate attributeName="opacity" values="1;0.2;1" dur="1.6s" repeatCount="indefinite"/>
-  </rect>
-  <text x="{BW-152}" y="40" font-size="12" fill="{GREY}" font-family="{MONO}">{subtitle}</text>
+def slate(fname, scene, title, caption):
+    H = 96
+    svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" role="img" aria-label="scene {scene}: {esc(title)}">
+  <defs>{film_defs(W, H, seed=int(scene))}
+    <linearGradient id="rule" x1="0" x2="1">
+      <stop offset="0" stop-color="{SILVER_DIM}" stop-opacity="0.6"/>
+      <stop offset="1" stop-color="{SILVER_DIM}" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  {font_css(serif=True, italic=True)}
+  <rect width="{W}" height="{H}" fill="{INK}"/>
+  <g opacity="0">
+    <animate attributeName="opacity" from="0" to="1" dur="1.6s" begin="0.2s" fill="freeze"/>
+    <rect x="36" y="26" width="2" height="44" fill="{BLOOD}"/>
+    <text x="56" y="38" font-family="{MONO}" font-size="10" letter-spacing="3.5" fill="{ASH}">SCENE {scene}</text>
+    <text x="55" y="68" font-family="{SERIF}" font-size="32" fill="{SILVER}">{esc(title)}</text>
+    <text x="{W-36}" y="68" text-anchor="end" font-family="{SERIF}" font-style="italic" font-size="16" fill="{SILVER_DIM}">{esc(caption)}</text>
+    <rect x="56" y="80" width="{W-92}" height="1" fill="url(#rule)"/>
+  </g>
+  {film_overlay(W, H, vignette=False)}
 </svg>
 '''
     write_svg(f"assets/{fname}", svg)
 
 
 def divider():
-    W, H = 860, 22
-    svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" role="img" aria-label="divider">
-  <defs>
-    <linearGradient id="pkt" x1="0" x2="1" y1="0" y2="0">
-      <stop offset="0" stop-color="{HOT}" stop-opacity="0"/>
-      <stop offset="0.5" stop-color="{HOT}" stop-opacity="1"/>
-      <stop offset="1" stop-color="{HOT}" stop-opacity="0"/>
-    </linearGradient>
-  </defs>
-  <line x1="0" y1="11" x2="{W}" y2="11" stroke="{GREEN}" stroke-opacity="0.18" stroke-width="1"/>
-  <path d="M{W//2-7},11 L{W//2},5 L{W//2+7},11 L{W//2},17 Z" fill="{BG}" stroke="{GREEN}" stroke-opacity="0.6"/>
-  <rect x="0" y="10" width="90" height="2" fill="url(#pkt)">
-    <animate attributeName="x" values="-90;{W};{W}" keyTimes="0;0.7;1" dur="5s" repeatCount="indefinite"/>
-  </rect>
+    H = 28
+    svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" role="img" aria-label="">
+  <defs>{film_defs(W, H, seed=9)}</defs>
+  <rect width="{W}" height="{H}" fill="{INK}"/>
+  <line x1="300" y1="14" x2="410" y2="14" stroke="{HAIRLINE}"/>
+  <line x1="450" y1="14" x2="560" y2="14" stroke="{HAIRLINE}"/>
+  <path transform="translate(430 14) scale(0.5)" fill="{ASH}"
+        d="M0,-14 C6,-6 14,-2 14,5 C14,10 9,12 5,10 C3,9 2,8 1,7 L4,14 L-4,14 L-1,7 C-2,8 -3,9 -5,10 C-9,12 -14,10 -14,5 C-14,-2 -6,-6 0,-14 Z"/>
+  {film_overlay(W, H, vignette=False)}
 </svg>
 '''
     write_svg("assets/divider.svg", svg)
 
 
 def build():
-    banner("banner_work.svg", "selected work", "// 3 featured")
-    banner("banner_telemetry.svg", "telemetry", "// live · self-rebuilding")
-    banner("banner_stack.svg", "loadout", "// stack")
-    banner("banner_contact.svg", "whois", "// reach")
+    slate("banner_work.svg", "01", "The Jobs", "three that got out clean")
+    slate("banner_telemetry.svg", "02", "The Numbers", "counted every six hours")
+    slate("banner_stack.svg", "03", "The Crew", "tools of the trade")
+    slate("banner_contact.svg", "04", "The Getaway", "where to find me")
     divider()
 
 
