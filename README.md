@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-  <img src="assets/card_ace.svg" width="100%" alt="the ace of spades, crumpled, beside a short dossier: Sarvesh M, plays as KuantumKnight; works in ai systems and application security">
+  <img src="assets/card_ace.svg" width="100%" alt="the ace of spades, crumpled, beside the billing block: Sarvesh M, as KuantumKnight; works in ai systems and application security">
 </p>
 
 <p align="center">

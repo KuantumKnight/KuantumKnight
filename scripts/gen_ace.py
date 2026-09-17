@@ -1,11 +1,11 @@
 """
-card_ace.svg — the character card.
+card_ace.svg — the title card.
 
 a crumpled ace of spades (scripts/tools/source/ace.png, baked into
-scripts/ace_image.py) lit inside a dark frame. a foil sheen crosses it every
-few seconds, masked by the card's own luminance so the light only catches the
-paper. beside it, a dossier set like a card's rules text. the only red is the
-small spade before the label.
+scripts/ace_image.py) lit inside a dark frame. a sheen crosses it every few
+seconds, masked by the card's own luminance so the light only catches the
+paper. beside it, the billing block: who this is and what he works on, set
+like the credits at the head of a film. the only red is the small spade.
 """
 
 from lib import (INK, SILVER, SILVER_DIM, ASH, BLOOD, SERIF, MONO,
@@ -42,16 +42,16 @@ def dossier(me, stack):
         ("works in", "ai systems, application security"),
         ("builds", "local-first tools and assistants"),
         ("off hours", "ctfs, labs, writeups"),
-        ("carries", " · ".join(stack)),
+        ("works with", " · ".join(stack)),
     ]
     out = [
         reveal(1.0, f'<path transform="translate({X + 4} 127) scale(0.32)" d="{SPADE}" fill="{BLOOD}"/>'
                     f'<text x="{X + 16}" y="132" font-family="{MONO}" font-size="10" '
-                    f'letter-spacing="3.5" fill="{ASH}">CARD 00 — ACE OF SPADES</text>'),
+                    f'letter-spacing="3.5" fill="{ASH}">IN THE LEADING ROLE</text>'),
         reveal(1.4, f'<text x="{X - 2}" y="182" font-family="{SERIF}" font-size="46" '
                     f'fill="{SILVER}">{esc(me["name"])}</text>'),
         reveal(1.8, f'<text x="{X}" y="210" font-family="{SERIF}" font-style="italic" '
-                    f'font-size="19" fill="{SILVER_DIM}">plays as {esc(me["handle"])}</text>'),
+                    f'font-size="19" fill="{SILVER_DIM}">as {esc(me["handle"])}</text>'),
         reveal(2.2, f'<rect x="{X}" y="232" width="330" height="1" fill="{SILVER_DIM}" opacity="0.35"/>'),
     ]
     for i, (k, v) in enumerate(rules):
@@ -60,8 +60,6 @@ def dossier(me, stack):
                           f'<text y="{y}" font-family="{MONO}" font-size="12">'
                           f'<tspan x="{X}" fill="{ASH}">{esc(k)}</tspan>'
                           f'<tspan x="{X + 96}" fill="{SILVER}">{esc(v)}</tspan></text>'))
-    out.append(reveal(3.8, f'<text x="{X}" y="390" font-family="{SERIF}" font-style="italic" '
-                           f'font-size="15" fill="{SILVER_DIM}">High or low, as the hand needs.</text>'))
     return "".join(out)
 
 
@@ -69,7 +67,7 @@ def build():
     p = profile()
     me = p["identity"]
     stack = ["python", "typescript", "kali"]
-    svg = f'''<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="{W}" height="{H}" viewBox="0 0 {W} {H}" role="img" aria-label="the ace of spades, crumpled, beside a short dossier: {esc(me["name"])}, plays as {esc(me["handle"])}">
+    svg = f'''<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="{W}" height="{H}" viewBox="0 0 {W} {H}" role="img" aria-label="the ace of spades, crumpled, beside the billing block: {esc(me["name"])}, as {esc(me["handle"])}">
   <defs>{film_defs(W, H, seed=11)}
     <image id="ace" x="{IX}" y="{IY}" width="{IW}" height="{IH}" preserveAspectRatio="xMidYMid meet"
            href="data:image/jpeg;base64,{ace_image.ACE_JPEG_B64}"/>

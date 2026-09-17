@@ -1,5 +1,5 @@
 """
-card_*.svg — one case file per featured project.
+card_*.svg — one frame per featured project.
 
 a thin letterboxed still: a large dim serif numeral, the name, a one-line
 brief, a sentence of detail, and the stack set as plain text. the right half
@@ -107,8 +107,7 @@ def card(idx, p, stars=None):
     numeral = (f'<text x="36" y="138" font-family="{SERIF}" font-size="118" '
                f'fill="#2a2926">{num}</text>')
     head = (f'<text x="{TX}" y="50" font-family="{MONO}" font-size="9.5" '
-            f'letter-spacing="3.5" fill="{ASH}">CASE FILE {num}'
-            f'<tspan letter-spacing="0.5">  —  {esc(p["repo"])}</tspan></text>'
+            f'letter-spacing="1" fill="{ASH}">{esc(p["repo"])}</text>'
             f'<text x="{TX - 2}" y="94" font-family="{SERIF}" font-size="40" '
             f'fill="{SILVER}">{esc(p["name"])}</text>')
     if stars:
