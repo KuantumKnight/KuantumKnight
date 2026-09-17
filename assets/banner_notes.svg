@@ -12,7 +12,7 @@
     <rect x="36" y="26" width="2" height="44" fill="#b3261e"/>
     <text x="56" y="38" font-family="'KK Mono','JetBrains Mono','SFMono-Regular',ui-monospace,Consolas,'Liberation Mono',Menlo,monospace" font-size="10" letter-spacing="3.5" fill="#55534e">SCENE 02</text>
     <text x="55" y="68" font-family="'KK Serif','Instrument Serif',Georgia,'Times New Roman',serif" font-size="32" fill="#d8d5ce">Field Notes</text>
-    <text x="824" y="68" text-anchor="end" font-family="'KK Serif','Instrument Serif',Georgia,'Times New Roman',serif" font-style="italic" font-size="16" fill="#8a877f">writeups and older work</text>
+    <text x="824" y="68" text-anchor="end" font-family="'KK Serif','Instrument Serif',Georgia,'Times New Roman',serif" font-style="italic" font-size="16" fill="#8a877f">writeups and side builds</text>
     <rect x="56" y="80" width="768" height="1" fill="url(#rule)"/>
   </g>
   <rect width="860" height="96" filter="url(#kk-grain)"/>

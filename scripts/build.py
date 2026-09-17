@@ -14,6 +14,7 @@ import gen_stack
 import gen_cards
 import gen_sections
 import gen_joker
+import gen_notes
 
 
 def main():
@@ -22,7 +23,8 @@ def main():
                       ("ops", gen_ops), ("contrib", gen_contrib),
                       ("stack", gen_stack), ("cards", gen_cards),
                       ("sections", gen_sections),
-                      ("joker", gen_joker)]:
+                      ("joker", gen_joker),
+                      ("notes", gen_notes)]:
         try:
             mod.build()
         except Exception as e:  # noqa: BLE001 — never let one panel sink the build

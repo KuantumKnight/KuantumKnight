@@ -33,12 +33,15 @@
 
 <p align="center"><img src="assets/divider.svg" width="860" alt=""></p>
 
-<p align="center"><img src="assets/banner_notes.svg" width="860" alt="02 — field notes: writeups and older work"></p>
+<p align="center"><img src="assets/banner_notes.svg" width="860" alt="02 — field notes: writeups and side builds"></p>
 
 <p align="center">
-  <a href="https://github.com/KuantumKnight/ZeroDayHeist_CTF_Writeups"><b>ZeroDay Heist</b></a> — 17 challenges from ZeroDay Heist 2026: forensics, reversing, OSINT, stego, crypto<br>
-  <a href="https://github.com/KuantumKnight/BLACKBOX_Writeups"><b>BLACKBOX</b></a> — a six-part engineering challenge, all six solved<br>
-  <a href="https://github.com/KuantumKnight/Synthetix"><b>Synthetix</b></a> — finds duplicate bug reports and rewrites the vague ones
+  <img src="assets/notes_head_ctf.svg" width="416" alt="writeups">&nbsp;<img src="assets/notes_head_builds.svg" width="416" alt="other builds"><br>
+  <a href="https://github.com/KuantumKnight/ExploitX_CTF_Writeups"><img src="assets/note_exploitx-ctf-writeups.svg" width="416" alt="ExploitX 2026: 1st overall with Kn1ghts, 27 writeups"></a>&nbsp;<a href="https://github.com/KuantumKnight/forge"><img src="assets/note_forge.svg" width="416" alt="forge: turns scattered bug reports into one queue"></a><br>
+  <a href="https://github.com/KuantumKnight/ZeroDayHeist_CTF_Writeups"><img src="assets/note_zerodayheist-ctf-writeups.svg" width="416" alt="ZeroDay Heist 2026: forensics, reversing, OSINT, stego, crypto"></a>&nbsp;<a href="https://github.com/KuantumKnight/gdg_llm_sandbox"><img src="assets/note_gdg-llm-sandbox.svg" width="416" alt="GDG LLM Sandbox: prompt-injection challenge, GDG VIT Chennai"></a><br>
+  <a href="https://github.com/KuantumKnight/BLACKBOX_Writeups"><img src="assets/note_blackbox-writeups.svg" width="416" alt="BLACKBOX: six-module challenge, C++17 solutions"></a>&nbsp;<a href="https://github.com/KuantumKnight/mic-event-checkin"><img src="assets/note_mic-event-checkin.svg" width="416" alt="MIC Event Check-in: QR check-in desk that keeps working offline"></a><br>
+  <a href="https://github.com/KuantumKnight/CTF_Arsenal"><img src="assets/note_ctf-arsenal.svg" width="416" alt="CTF Arsenal: field guides for every category"></a>&nbsp;<a href="https://github.com/KuantumKnight/Synthetix"><img src="assets/note_synthetix.svg" width="416" alt="Synthetix: finds duplicate bug reports, fixes vague ones"></a><br>
+  <a href="https://github.com/KuantumKnight/AllWriteups"><img src="assets/note_allwriteups.svg" width="416" alt="All Writeups: solves from other events, in one place"></a>&nbsp;<a href="https://github.com/KuantumKnight/geometry-dash-rl-ai-agent"><img src="assets/note_geometry-dash-rl-ai-agent.svg" width="416" alt="Geometry Dash RL: learning RL from the control loop up"></a>
 </p>
 
 <p align="center"><img src="assets/divider.svg" width="860" alt=""></p>
@@ -48,7 +51,7 @@
 <p align="center">
   <img src="assets/stats.svg" width="416" alt="public repositories, stars, followers, and languages">
   &nbsp;
-  <img src="assets/ops.svg" width="416" alt="recent pushes">
+  <img src="assets/ops.svg" width="416" alt="radar of recent pushes">
 </p>
 <p align="center">
   <img src="assets/contrib.svg" width="840" alt="contribution calendar for the past year">

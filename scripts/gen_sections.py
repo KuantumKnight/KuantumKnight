@@ -54,7 +54,7 @@ def divider():
 
 def build():
     slate("banner_work.svg", "01", "Work", "current projects")
-    slate("banner_notes.svg", "02", "Field Notes", "writeups and older work")
+    slate("banner_notes.svg", "02", "Field Notes", "writeups and side builds")
     slate("banner_telemetry.svg", "03", "Record", "public activity, refreshed every six hours")
     slate("banner_stack.svg", "04", "Kit", "what i build with")
     slate("banner_contact.svg", "05", "Contact", "email, github, linkedin")
