@@ -84,13 +84,18 @@ def build():
                 f'begin="{begin}s" repeatCount="indefinite"/></rect>')
 
     grid_w, grid_h = maxj * STRIDE + CELL, 7 * STRIDE - GAP
-    beam = f'''<g clip-path="url(#gclip)">
-    <g>
+    # a soft column of light rather than a drawn line: a wide falloff behind
+    # a blurred core, faded at both ends, easing across the year.
+    beam = f'''<g clip-path="url(#gclip)" mask="url(#ends)">
+    <g opacity="0.9">
       <animateTransform attributeName="transform" type="translate"
-        values="0 0;{maxj * STRIDE} 0;{maxj * STRIDE} 0" keyTimes="0;{SWEEP};1" dur="{P}s" repeatCount="indefinite"/>
-      <animate attributeName="opacity" values="1;1;0;0" keyTimes="0;{SWEEP};{SWEEP + 0.01};1" dur="{P}s" repeatCount="indefinite"/>
-      <rect x="{GX - 22}" y="{GY - 4}" width="28" height="{grid_h + 8}" fill="url(#beam)"/>
-      <line x1="{GX + CELL / 2:.1f}" y1="{GY - 4}" x2="{GX + CELL / 2:.1f}" y2="{GY + grid_h + 4}" stroke="{SILVER}" stroke-width="1" opacity="0.8"/>
+        values="0 0;{maxj * STRIDE} 0;{maxj * STRIDE} 0" keyTimes="0;{SWEEP};1" dur="{P}s"
+        calcMode="spline" keySplines="0.45 0 0.35 1;0 0 1 1" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0;0.9;0.9;0;0" keyTimes="0;0.06;{SWEEP - 0.1};{SWEEP};1"
+        dur="{P}s" repeatCount="indefinite"/>
+      <rect x="{GX - 96}" y="{GY - 6}" width="100" height="{grid_h + 12}" fill="url(#beam)"/>
+      <rect x="{GX + CELL / 2 - 1:.1f}" y="{GY - 6}" width="2" height="{grid_h + 12}"
+            fill="{SILVER}" opacity="0.55" filter="url(#soften)"/>
     </g>
   </g>'''
 
@@ -122,8 +127,22 @@ def build():
   <defs>{film_defs(W, H, seed=41)}
     <linearGradient id="beam" x1="0" x2="1">
       <stop offset="0" stop-color="{SILVER}" stop-opacity="0"/>
-      <stop offset="1" stop-color="{SILVER}" stop-opacity="0.16"/>
+      <stop offset="0.55" stop-color="{SILVER}" stop-opacity="0.03"/>
+      <stop offset="0.85" stop-color="{SILVER}" stop-opacity="0.09"/>
+      <stop offset="1" stop-color="{SILVER}" stop-opacity="0.20"/>
     </linearGradient>
+    <linearGradient id="endsg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#000"/>
+      <stop offset="0.18" stop-color="#fff"/>
+      <stop offset="0.82" stop-color="#fff"/>
+      <stop offset="1" stop-color="#000"/>
+    </linearGradient>
+    <mask id="ends" maskUnits="userSpaceOnUse" x="0" y="{GY - 8}" width="{W}" height="{7 * STRIDE + 8}">
+      <rect x="0" y="{GY - 8}" width="{W}" height="{7 * STRIDE + 8}" fill="url(#endsg)"/>
+    </mask>
+    <filter id="soften" x="-400%" y="-10%" width="900%" height="120%">
+      <feGaussianBlur stdDeviation="1.4"/>
+    </filter>
     <clipPath id="gclip"><rect x="{GX - 4}" y="{GY - 4}" width="{grid_w + 8}" height="{grid_h + 8}"/></clipPath>
   </defs>
   {font_css()}
