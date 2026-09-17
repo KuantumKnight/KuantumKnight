@@ -1,20 +1,24 @@
 """
-contrib.svg — the year, developed.
+contrib.svg — the year, scanned.
 
-a github-style calendar (months across, mon/wed/fri down the side). the grid
-starts as an unexposed sheet; active days develop in column by column at
-their true intensity, once, then hold. today is the one red cell.
+a github-style calendar (months across, mon/wed/fri down the side). active
+days rest at a faint shade; a silver scan line sweeps left to right and each
+day flares to its true intensity as the line passes, then settles back.
+loops. today is the one red cell, and never moves.
 """
 
 from datetime import datetime, timedelta
-from lib import (INK, ASH, BLOOD, RAMP, MONO, font_css, film_defs,
+from lib import (INK, SILVER, ASH, BLOOD, RAMP, MONO, font_css, film_defs,
                  film_overlay, write_svg, collect, panel_head)
 
 CELL, GAP = 11, 3
 STRIDE = CELL + GAP
 GX, GY = 52, 92          # grid origin (room for header, weekday + month labels)
 COLS = 53
-DEVELOP = 2.6            # seconds for the exposure to cross the year
+P = 8.0                  # full scan cycle (s)
+SWEEP = 0.85             # fraction of the cycle the line takes to cross
+DECAY = 0.46             # fraction of the cycle a flared day takes to settle
+REST = 0.35              # resting opacity of an active day between passes
 W = GX + COLS * STRIDE + 30
 H = 236
 
@@ -68,13 +72,27 @@ def build():
         x, y = GX + col * STRIDE, GY + row * STRIDE
         base.append(f'<rect x="{x}" y="{y}" width="{CELL}" height="{CELL}" '
                     f'rx="1.5" fill="{RAMP[0]}"/>')
-        fill = BLOOD if cell == today else (RAMP[min(lvl, 4)] if lvl else None)
-        if fill:
-            begin = round(0.4 + (col / maxj) * DEVELOP, 3)
+        if cell == today:
+            dev.append(f'<rect x="{x}" y="{y}" width="{CELL}" height="{CELL}" '
+                       f'rx="1.5" fill="{BLOOD}"/>')
+        elif lvl:
+            begin = round((col / maxj) * SWEEP * P, 3)
             dev.append(
                 f'<rect x="{x}" y="{y}" width="{CELL}" height="{CELL}" rx="1.5" '
-                f'fill="{fill}" opacity="0"><animate attributeName="opacity" '
-                f'from="0" to="1" dur="0.9s" begin="{begin}s" fill="freeze"/></rect>')
+                f'fill="{RAMP[min(lvl, 4)]}" opacity="{REST}"><animate attributeName="opacity" '
+                f'values="{REST};1;{REST};{REST}" keyTimes="0;0.03;{DECAY};1" dur="{P}s" '
+                f'begin="{begin}s" repeatCount="indefinite"/></rect>')
+
+    grid_w, grid_h = maxj * STRIDE + CELL, 7 * STRIDE - GAP
+    beam = f'''<g clip-path="url(#gclip)">
+    <g>
+      <animateTransform attributeName="transform" type="translate"
+        values="0 0;{maxj * STRIDE} 0;{maxj * STRIDE} 0" keyTimes="0;{SWEEP};1" dur="{P}s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="1;1;0;0" keyTimes="0;{SWEEP};{SWEEP + 0.01};1" dur="{P}s" repeatCount="indefinite"/>
+      <rect x="{GX - 22}" y="{GY - 4}" width="28" height="{grid_h + 8}" fill="url(#beam)"/>
+      <line x1="{GX + CELL / 2:.1f}" y1="{GY - 4}" x2="{GX + CELL / 2:.1f}" y2="{GY + grid_h + 4}" stroke="{SILVER}" stroke-width="1" opacity="0.8"/>
+    </g>
+  </g>'''
 
     # a partial first month leaves two labels nearly on top of each other
     spaced = []
@@ -101,7 +119,13 @@ def build():
               + f'<text x="42" y="{H - 20}" {label}>today</text>')
 
     svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" role="img" aria-label="contribution calendar: {d['contrib_total']} active days in the past year">
-  <defs>{film_defs(W, H, seed=41)}</defs>
+  <defs>{film_defs(W, H, seed=41)}
+    <linearGradient id="beam" x1="0" x2="1">
+      <stop offset="0" stop-color="{SILVER}" stop-opacity="0"/>
+      <stop offset="1" stop-color="{SILVER}" stop-opacity="0.16"/>
+    </linearGradient>
+    <clipPath id="gclip"><rect x="{GX - 4}" y="{GY - 4}" width="{grid_w + 8}" height="{grid_h + 8}"/></clipPath>
+  </defs>
   {font_css()}
   <rect width="{W}" height="{H}" fill="{INK}"/>
   {panel_head(W, "the year", f"{d['contrib_total']} active days")}
@@ -109,6 +133,7 @@ def build():
   {wlabels}
   <g>{"".join(base)}</g>
   <g>{"".join(dev)}</g>
+  {beam}
   {legend}
   {film_overlay(W, H, vignette=False)}
 </svg>

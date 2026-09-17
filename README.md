@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-  <img src="assets/card_joker.svg" width="860" alt="a joker playing card beside a short dossier: Sarvesh M, plays as KuantumKnight; works in ai systems and application security">
+  <img src="assets/card_ace.svg" width="860" alt="the ace of spades, crumpled, beside a short dossier: Sarvesh M, plays as KuantumKnight; works in ai systems and application security">
 </p>
 
 <p align="center">
@@ -51,7 +51,7 @@
 <p align="center">
   <img src="assets/stats.svg" width="416" alt="public repositories, stars, followers, and languages">
   &nbsp;
-  <img src="assets/ops.svg" width="416" alt="radar of recent pushes">
+  <img src="assets/ops.svg" width="416" alt="recent pushes">
 </p>
 <p align="center">
   <img src="assets/contrib.svg" width="840" alt="contribution calendar for the past year">
