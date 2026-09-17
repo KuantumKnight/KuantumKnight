@@ -17,8 +17,7 @@
         "mcp",
         "sqlite",
         "kali"
-      ],
-      "art": "hash_chain"
+      ]
     },
     {
       "id": "bugbouncer",
@@ -30,8 +29,7 @@
         "typescript",
         "sqlite-wasm",
         "next.js"
-      ],
-      "art": "star_seal"
+      ]
     },
     {
       "id": "lily",
@@ -43,8 +41,7 @@
         "python",
         "ollama",
         "local-first"
-      ],
-      "art": "localhost"
+      ]
     }
   ],
   "stack": [

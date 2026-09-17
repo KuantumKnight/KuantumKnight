@@ -2,17 +2,18 @@
 card_*.svg — one case file per featured project.
 
 a thin letterboxed still: a large dim serif numeral, the name, a one-line
-brief, a sentence of detail, and the stack set as plain text. on the right,
-a small hairline mark drawn for that project (profile.json "art"). copy comes
-from profile.json. each card is wrapped in a link in the README, so the whole
-frame is clickable.
+brief, a sentence of detail, and the stack set as plain text. the right half
+carries the project's engraved poster as a 1-bit dither (keyed by project id
+in scripts/poster_images.py), fading into the ink behind the text. copy comes from profile.json. each card is wrapped in a link in the
+README, so the whole frame is clickable.
 """
 
 import math
 
-from lib import (INK, HAIRLINE, SILVER, SILVER_DIM, ASH, BLOOD, SERIF, MONO,
-                 esc, font_css, film_defs, film_overlay, write_svg, collect,
-                 profile, reveal)
+from lib import (INK, SILVER, SILVER_DIM, ASH, BLOOD, SERIF, MONO, esc,
+                 font_css, film_defs, film_overlay, write_svg, collect, profile,
+                 reveal)
+from poster_images import POSTERS
 
 W, H = 860, 220
 BAR = 10
@@ -31,44 +32,35 @@ def wrap(text, n=62, maxlines=2):
     return lines[:maxlines]
 
 
-# ----------------------------------------------------------- marks ----
-# each mark lives in the right-hand box, x 690..830, y 40..200.
+# -------------------------------------------------------- backdrop ----
 
-def hash_chain(_):
-    """lotusmcp: four linked blocks of an append-only log, lit left to right."""
-    x0, y, bw, bh, gap = 692, 96, 26, 20, 10
-    out = [f'<text x="{x0}" y="{y - 14}" font-family="{MONO}" font-size="8" '
-           f'letter-spacing="2" fill="{ASH}">APPEND-ONLY</text>']
-    for i in range(4):
-        x = x0 + i * (bw + gap)
-        if i:
-            out.append(f'<line x1="{x - gap}" y1="{y + bh / 2}" x2="{x}" y2="{y + bh / 2}" '
-                       f'stroke="{SILVER_DIM}" stroke-width="0.8"/>')
-        block = (f'<rect x="{x}" y="{y}" width="{bw}" height="{bh}" fill="none" '
-                 f'stroke="{SILVER}" stroke-width="0.9"/>'
-                 f'<line x1="{x + 5}" y1="{y + 7}" x2="{x + bw - 5}" y2="{y + 7}" stroke="{SILVER_DIM}" stroke-width="0.6"/>'
-                 f'<line x1="{x + 5}" y1="{y + 12}" x2="{x + bw - 9}" y2="{y + 12}" stroke="{SILVER_DIM}" stroke-width="0.6"/>'
-                 f'<text x="{x + bw / 2}" y="{y + bh + 14}" text-anchor="middle" '
-                 f'font-family="{MONO}" font-size="8" fill="{ASH}">e{i + 1}</text>')
-        out.append(reveal(0.9 + i * 0.35, block, dur=0.6))
-    return f'<g opacity="0.8">{"".join(out)}</g>'
+PX = 430                     # poster occupies the right half
 
 
-def localhost(_):
-    """lily: a small machine, running locally — the breathing dot is the loop."""
-    x, y, w, h = 712, 64, 96, 60
-    return (f'<g opacity="0.8">'
-            f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="3" fill="none" '
-            f'stroke="{SILVER}" stroke-width="0.9"/>'
-            f'<line x1="{x + w / 2}" y1="{y + h}" x2="{x + w / 2}" y2="{y + h + 12}" stroke="{SILVER_DIM}" stroke-width="0.9"/>'
-            f'<line x1="{x + w / 2 - 18}" y1="{y + h + 12}" x2="{x + w / 2 + 18}" y2="{y + h + 12}" stroke="{SILVER_DIM}" stroke-width="0.9"/>'
-            f'<text x="{x + 10}" y="{y + 20}" font-family="{MONO}" font-size="8.5" fill="{SILVER_DIM}">lily &gt;</text>'
-            f'<circle cx="{x + 47}" cy="{y + 17}" r="2.2" fill="{SILVER}">'
-            f'<animate attributeName="opacity" values="1;0.25;1" dur="3.2s" repeatCount="indefinite"/></circle>'
-            f'<line x1="{x + 10}" y1="{y + 32}" x2="{x + 70}" y2="{y + 32}" stroke="{HAIRLINE}" stroke-width="2"/>'
-            f'<line x1="{x + 10}" y1="{y + 42}" x2="{x + 54}" y2="{y + 42}" stroke="{HAIRLINE}" stroke-width="2"/>'
-            f'<text x="{x + w / 2}" y="{y + h + 32}" text-anchor="middle" font-family="{MONO}" '
-            f'font-size="9" letter-spacing="1" fill="{ASH}">127.0.0.1</text></g>')
+def backdrop(key):
+    """the dithered poster, tinted silver, fading in from the text side."""
+    w, h, b64 = POSTERS[key]
+    cx, cy = PX + w / 2, H / 2
+    return f'''<defs>
+    <filter id="tint" color-interpolation-filters="sRGB">
+      <feColorMatrix values="0 0 0 0 0.847  0 0 0 0 0.835  0 0 0 0 0.808  0.3 0.3 0.3 0 0"/>
+    </filter>
+    <linearGradient id="fadeg" x1="{PX + 100}" x2="{PX + 300}" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#000"/><stop offset="1" stop-color="#fff"/>
+    </linearGradient>
+    <mask id="fade" maskUnits="userSpaceOnUse" x="0" y="0" width="{W}" height="{H}">
+      <rect width="{W}" height="{H}" fill="url(#fadeg)"/>
+    </mask>
+  </defs>
+  <g mask="url(#fade)" opacity="0">
+    <animate attributeName="opacity" from="0" to="0.62" dur="2.4s" begin="0.2s" fill="freeze"/>
+    <g transform="translate({cx} {cy})"><g>
+      <animateTransform attributeName="transform" type="scale"
+        values="1.04;1" dur="6s" begin="0.2s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.2 0.6 0.3 1"/>
+      <image x="{-w / 2}" y="{-h / 2}" width="{w}" height="{h}" filter="url(#tint)"
+             style="image-rendering:pixelated" href="data:image/png;base64,{b64}"/>
+    </g></g>
+  </g>'''
 
 
 def _star(cx, cy, r):
@@ -80,26 +72,13 @@ def _star(cx, cy, r):
     return "M" + " L".join(pts) + " Z"
 
 
-def star_seal(stars):
-    """bugbouncer: a slowly turning seal with the star count counting up inside."""
-    cx, cy, r = 762, 104, 50
-    ring_r = r - 7
-    ring = (f'<path id="sealpath" d="M{cx - ring_r},{cy} a{ring_r},{ring_r} 0 1,1 {2 * ring_r},0 '
-            f'a{ring_r},{ring_r} 0 1,1 -{2 * ring_r},0" fill="none"/>')
-    seal = (f'<g><animateTransform attributeName="transform" type="rotate" '
-            f'from="0 {cx} {cy}" to="360 {cx} {cy}" dur="60s" repeatCount="indefinite"/>'
-            f'<text font-family="{MONO}" font-size="7.5" letter-spacing="1.6" fill="{SILVER_DIM}">'
-            f'<textPath href="#sealpath">MOST STARRED · MOST STARRED · MOST STARRED ·</textPath></text></g>')
-    circles = (f'<circle cx="{cx}" cy="{cy}" r="{r}" fill="none" stroke="{SILVER}" stroke-width="0.9"/>'
-               f'<circle cx="{cx}" cy="{cy}" r="{r - 14}" fill="none" stroke="{SILVER_DIM}" stroke-width="0.6"/>')
-
-    # count up 0 -> stars once; the last frame is visible by default so a
-    # renderer that ignores animation still shows the real number.
-    n = 12
-    t0, dur = 1.0, 1.4
+def star_count(x, stars):
+    """a red star and the star count, counting up once beside the name.
+    the last frame is visible by default so a renderer that ignores
+    animation still shows the real number."""
+    n, t0, dur = 12, 1.0, 1.4
     frames = []
     for k in range(1, n + 1):
-        val = round(stars * k / n)
         on = t0 + dur * (k - 1) / n
         off = t0 + dur * k / n
         last = k == n
@@ -108,19 +87,13 @@ def star_seal(stars):
         if not last:
             anim += f'<set attributeName="visibility" to="hidden" begin="{off:.3f}s"/>'
         frames.append(
-            f'<text x="{cx}" y="{cy + 13}" text-anchor="middle" font-family="{SERIF}" '
-            f'font-size="36" fill="{SILVER}" visibility="{"visible" if last else "hidden"}">'
-            f'{anim}{val}</text>')
-
-    caption = (f'<text x="{cx}" y="{cy + r + 20}" text-anchor="middle" font-family="{MONO}" '
-               f'font-size="8.5" letter-spacing="2" fill="{ASH}">STARS ON GITHUB</text>')
-    return (f'<defs>{ring}</defs>'
-            + reveal(0.6, circles + seal + caption
-                     + f'<path d="{_star(cx, cy - 22, 5)}" fill="{BLOOD}"/>', dur=1.2)
-            + "".join(frames))
-
-
-MARKS = {"hash_chain": hash_chain, "localhost": localhost, "star_seal": star_seal}
+            f'<text x="{x + 16}" y="94" font-family="{SERIF}" font-size="28" fill="{SILVER}" '
+            f'visibility="{"visible" if last else "hidden"}">{anim}{round(stars * k / n)}</text>')
+    digits = len(str(stars))
+    return (f'<path d="{_star(x + 5, 84, 6)}" fill="{BLOOD}"/>'
+            + "".join(frames)
+            + f'<text x="{x + 20 + digits * 14}" y="94" font-family="{MONO}" font-size="10" '
+              f'letter-spacing="1.5" fill="{ASH}">STARS</text>')
 
 
 def card(idx, p, stars=None):
@@ -134,11 +107,12 @@ def card(idx, p, stars=None):
     numeral = (f'<text x="36" y="138" font-family="{SERIF}" font-size="118" '
                f'fill="#2a2926">{num}</text>')
     head = (f'<text x="{TX}" y="50" font-family="{MONO}" font-size="9.5" '
-            f'letter-spacing="3.5" fill="{ASH}">CASE FILE {num}</text>'
-            f'<text x="{W - 36}" y="50" text-anchor="end" font-family="{MONO}" '
-            f'font-size="10.5" fill="{ASH}">github.com/{esc(p["repo"])}</text>'
+            f'letter-spacing="3.5" fill="{ASH}">CASE FILE {num}'
+            f'<tspan letter-spacing="0.5">  —  {esc(p["repo"])}</tspan></text>'
             f'<text x="{TX - 2}" y="94" font-family="{SERIF}" font-size="40" '
             f'fill="{SILVER}">{esc(p["name"])}</text>')
+    if stars:
+        head += star_count(TX + len(p["name"]) * 0.43 * 40 + 18, stars)
     body = (f'<text x="{TX}" y="128" font-family="{SERIF}" font-size="20" '
             f'fill="{SILVER}">{esc(p["brief"])}</text>{detail}')
     foot = (f'<text x="{TX}" y="{H - 22}" font-family="{MONO}" font-size="11" '
@@ -148,7 +122,7 @@ def card(idx, p, stars=None):
   <defs>{film_defs(W, H, seed=20 + idx)}</defs>
   {font_css(serif=True)}
   <rect width="{W}" height="{H}" fill="{INK}"/>
-  {MARKS[p["art"]](stars)}
+  {backdrop(p["id"])}
   {reveal(0.2, numeral, dur=2.0)}
   {reveal(0.5, head)}
   {reveal(0.9, body)}
