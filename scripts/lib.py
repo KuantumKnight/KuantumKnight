@@ -43,6 +43,17 @@ SERIF = "'KK Serif','Instrument Serif',Georgia,'Times New Roman',serif"
 MONO = ("'KK Mono','JetBrains Mono','SFMono-Regular',ui-monospace,"
         "Consolas,'Liberation Mono',Menlo,monospace")
 
+# --------------------------------------------------------------- profile ----
+
+_PROFILE = os.path.join(os.path.dirname(__file__), "..", "profile.json")
+
+
+def profile():
+    """hand-written copy: identity, projects, notes, stack, contact."""
+    with open(_PROFILE, encoding="utf-8") as f:
+        return json.load(f)
+
+
 # ----------------------------------------------------------------- fetch ----
 
 _TOKEN = os.environ.get("GITHUB_TOKEN") or os.environ.get("GH_TOKEN")

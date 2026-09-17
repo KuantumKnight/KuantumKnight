@@ -1,0 +1,73 @@
+{
+  "identity": {
+    "name": "Sarvesh M",
+    "handle": "KuantumKnight",
+    "role": "AI systems · application security · full-stack"
+  },
+  "projects": [
+    {
+      "id": "lotusmcp",
+      "name": "LotusMCP",
+      "repo": "KuantumKnight/lotusMCP",
+      "brief": "Autonomous CTF case-management MCP server.",
+      "detail": "Deterministic event log, graph projection, bounded working state.",
+      "chips": ["python", "mcp", "sqlite", "kali"],
+      "poster": "poster-lotus.jpg",
+      "theme": "black"
+    },
+    {
+      "id": "bugbouncer",
+      "name": "bugbouncer",
+      "repo": "KuantumKnight/bugbouncer",
+      "brief": "Local-first stability engine.",
+      "detail": "Finds architectural failures and points to the fix.",
+      "chips": ["typescript", "sqlite-wasm", "next.js"],
+      "poster": "poster-signal.jpg",
+      "theme": "red"
+    },
+    {
+      "id": "lily",
+      "name": "lily",
+      "repo": "KuantumKnight/lily",
+      "brief": "Local-first personal AI operating-system layer.",
+      "detail": "Private infrastructure for a persistent personal assistant.",
+      "chips": ["python", "local-first", "ai systems"],
+      "poster": "poster-lily.jpg",
+      "theme": "paper"
+    }
+  ],
+  "field_notes": [
+    {
+      "name": "BLACKBOX Writeups",
+      "repo": "KuantumKnight/BLACKBOX_Writeups",
+      "note": "Six-module engineering challenge · 6/6 complete"
+    },
+    {
+      "name": "ZeroDay Heist",
+      "repo": "KuantumKnight/ZeroDayHeist_CTF_Writeups",
+      "note": "17 CTF writeups · forensics, RE, OSINT, steg, crypto"
+    },
+    {
+      "name": "Synthetix",
+      "repo": "KuantumKnight/Synthetix",
+      "note": "Duplicate-defect finder and bug-report enhancer"
+    }
+  ],
+  "stack": [
+    {"name": "python", "logo": "python"},
+    {"name": "typescript", "logo": "typescript"},
+    {"name": "react", "logo": "react"},
+    {"name": "fastapi", "logo": "fastapi"},
+    {"name": "mcp", "logo": null},
+    {"name": "sqlite", "logo": null},
+    {"name": "next.js", "logo": null},
+    {"name": "docker", "logo": null},
+    {"name": "git", "logo": "git"},
+    {"name": "kali linux", "logo": "kalilinux"}
+  ],
+  "contact": {
+    "github": "https://github.com/KuantumKnight",
+    "linkedin": "https://www.linkedin.com/in/s4rv3sh-m",
+    "email": "sarveshmknight@gmail.com"
+  }
+}
