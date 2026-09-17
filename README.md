@@ -9,6 +9,10 @@
 </p>
 
 <p align="center">
+  <img src="assets/card_joker.svg" width="860" alt="a joker playing card beside a short dossier: Sarvesh M, plays as KuantumKnight; works in ai systems and application security">
+</p>
+
+<p align="center">
   I'm Sarvesh. I build AI systems that run on your own machine, and spend the rest of my time on security:<br>
   CTFs, labs, and the tooling in between. Most of what's below is one or the other. The best of it is both.
 </p>
