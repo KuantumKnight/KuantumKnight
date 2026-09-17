@@ -10,7 +10,7 @@ fades in once and holds.
 import re
 
 from lib import (INK, SILVER, SILVER_DIM, ASH, BLOOD, SERIF, MONO,
-                 esc, font_css, film_defs, film_overlay, write_svg, profile)
+                 esc, font_css, film_defs, film_overlay, write_svg, profile, reveal)
 from gen_ascii import frames, COLS, ROWS
 
 W, H = 860, 360
@@ -52,11 +52,6 @@ def spade():
             f'opacity="0">'
             f'<animate attributeName="opacity" from="0" to="1" dur="2.4s" begin="0.3s" fill="freeze"/>'
             + "".join(groups) + '</g>')
-
-
-def reveal(delay, body, dur=1.4):
-    return (f'<g opacity="0"><animate attributeName="opacity" from="0" to="1" '
-            f'dur="{dur}s" begin="{delay}s" fill="freeze"/>{body}</g>')
 
 
 def build():

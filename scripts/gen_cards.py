@@ -1,117 +1,84 @@
 """
-card_*.svg — cinematic project "dossier" cards.
+card_*.svg — one case file per featured project.
 
-one tactical readout per featured project: index, name, repo path, terse brief,
-stat chips, a faint watermark icon (baked Lucide line art), HUD corner brackets,
-a slow scan shimmer.
-each card is wrapped in a markdown link in the README, so the whole card is
-clickable despite being an image.
+a thin letterboxed still: a large dim serif numeral, the name, a one-line
+brief, a sentence of detail, and the stack set as plain text. the project's
+icon sits faintly on the right. copy comes from profile.json. each card is
+wrapped in a link in the README, so the whole frame is clickable.
 """
 
-from lib import (BG, PANEL, BORDER, GREEN, GREY, WHITE, CYAN, RED, AMBER, LIME,
-                 MONO, esc, write_svg, collect, profile)
+from lib import (INK, SILVER, SILVER_DIM, ASH, SERIF, MONO, esc, font_css,
+                 film_defs, film_overlay, write_svg, collect, profile, reveal)
 from icons import CARD_ICONS
 
-W, H = 860, 168
+W, H = 860, 220
+BAR = 10
+TX = 190                     # text column
 
 
-def wrap(text, n=58, maxlines=2):
+def wrap(text, n=84, maxlines=2):
     words, lines, cur = text.split(), [], ""
     for w in words:
-        if len(cur) + len(w) + 1 <= n:
-            cur = (cur + " " + w).strip()
-        else:
+        if cur and len(cur) + len(w) + 1 > n:
             lines.append(cur)
             cur = w
-        if len(lines) == maxlines:
-            break
-    if cur and len(lines) < maxlines:
-        lines.append(cur)
+        else:
+            cur = f"{cur} {w}".strip()
+    lines.append(cur)
     return lines[:maxlines]
 
 
-def chip(x, y, text, accent=False):
-    w = len(text) * 7.4 + 18
-    col = CYAN if accent else GREEN
-    return (f'<rect x="{x}" y="{y}" width="{w:.0f}" height="20" rx="4" '
-            f'fill="{col}" fill-opacity="0.08" stroke="{col}" stroke-opacity="0.5"/>'
-            f'<text x="{x+w/2:.0f}" y="{y+14}" text-anchor="middle" font-size="11" '
-            f'fill="{col}" font-family="{MONO}">{esc(text)}</text>'), x + w + 8
-
-
 def watermark(icon):
-    """a baked Lucide line icon (24x24) as a faint neon watermark, right side.
-    scaled ~4.5x; stroke-width 0.55 in local units renders ~2.5px at that scale."""
+    """a baked Lucide line icon (24x24), large and faint, right side."""
     if icon not in CARD_ICONS:
         return ""
-    inner = CARD_ICONS[icon]
-    return (f'<g opacity="0.10" transform="translate(705,30) scale(4.5)" '
-            f'fill="none" stroke="{GREEN}" stroke-width="0.55" '
-            f'stroke-linecap="round" stroke-linejoin="round">{inner}</g>')
+    return (f'<g opacity="0.08" transform="translate(700,52) scale(5)" '
+            f'fill="none" stroke="{SILVER}" stroke-width="0.4" '
+            f'stroke-linecap="round" stroke-linejoin="round">{CARD_ICONS[icon]}</g>')
 
 
-def card(fname, idx, name, repo, brief, chips, icon, idx_accent="01"):
-    chip_svg, cx0 = "", 92
-    for i, (t, acc) in enumerate(chips):
-        s, cx0 = chip(cx0, 128, t, acc)
-        chip_svg += s
-    brief_lines = wrap(brief)
-    brief_svg = "".join(
-        f'<text x="92" y="{96+i*18}" font-size="13" fill="{WHITE}" font-family="{MONO}">{esc(ln)}</text>'
-        for i, ln in enumerate(brief_lines))
+def card(idx, p, stars=None):
+    num = f"{idx + 1:02d}"
+    tags = list(p["chips"])
+    if stars:
+        tags.insert(0, f"{stars} stars")
+    detail = "".join(
+        f'<text x="{TX}" y="{156 + i * 17}" font-family="{MONO}" font-size="11.5" '
+        f'fill="{SILVER_DIM}">{esc(ln)}</text>'
+        for i, ln in enumerate(wrap(p["detail"])))
 
-    svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" role="img" aria-label="{esc(name)} — {esc(brief)}">
-  <defs>
-    <linearGradient id="shim{idx}" x1="0" x2="1" y1="0" y2="0">
-      <stop offset="0" stop-color="{GREEN}" stop-opacity="0"/>
-      <stop offset="0.5" stop-color="{GREEN}" stop-opacity="0.06"/>
-      <stop offset="1" stop-color="{GREEN}" stop-opacity="0"/>
-    </linearGradient>
-    <clipPath id="cclip{idx}"><rect x="1" y="1" width="{W-2}" height="{H-2}" rx="10"/></clipPath>
-  </defs>
+    numeral = (f'<text x="36" y="138" font-family="{SERIF}" font-size="118" '
+               f'fill="#2a2926">{num}</text>')
+    head = (f'<text x="{TX}" y="50" font-family="{MONO}" font-size="9.5" '
+            f'letter-spacing="3.5" fill="{ASH}">CASE FILE {num}</text>'
+            f'<text x="{W - 36}" y="50" text-anchor="end" font-family="{MONO}" '
+            f'font-size="10.5" fill="{ASH}">github.com/{esc(p["repo"])}</text>'
+            f'<text x="{TX - 2}" y="94" font-family="{SERIF}" font-size="40" '
+            f'fill="{SILVER}">{esc(p["name"])}</text>')
+    body = (f'<text x="{TX}" y="128" font-family="{SERIF}" font-size="20" '
+            f'fill="{SILVER}">{esc(p["brief"])}</text>{detail}')
+    foot = (f'<text x="{TX}" y="{H - 22}" font-family="{MONO}" font-size="11" '
+            f'letter-spacing="0.5" fill="{ASH}">{esc("  ·  ".join(tags))}</text>')
 
-  <rect x="1" y="1" width="{W-2}" height="{H-2}" rx="10" fill="{BG}" stroke="{BORDER}" stroke-width="1.5"/>
-  <rect x="2" y="2" width="5" height="{H-4}" fill="{GREEN}" opacity="0.85">
-    <animate attributeName="opacity" values="0.85;0.4;0.85" dur="3s" repeatCount="indefinite"/>
-  </rect>
-
-  <!-- watermark icon -->
-  {watermark(icon)}
-
-  <!-- index -->
-  <text x="34" y="86" font-size="46" font-weight="700" fill="{GREEN}" fill-opacity="0.16" font-family="{MONO}">{idx_accent}</text>
-
-  <!-- title + repo -->
-  <text x="92" y="48" font-size="22" font-weight="700" fill="{GREEN}" font-family="{MONO}">{esc(name)}</text>
-  <text x="92" y="70" font-size="12" fill="{GREY}" font-family="{MONO}">› github.com/{esc(repo)}</text>
-
-  <!-- brief -->
-  {brief_svg}
-
-  <!-- chips -->
-  {chip_svg}
-
-  <!-- hud brackets + scan shimmer -->
-  <path d="M14,16 L14,8 L26,8" fill="none" stroke="{GREEN}" stroke-opacity="0.5"/>
-  <path d="M{W-14},{H-16} L{W-14},{H-8} L{W-26},{H-8}" fill="none" stroke="{GREEN}" stroke-opacity="0.5"/>
-  <g clip-path="url(#cclip{idx})">
-    <rect x="-200" y="1" width="200" height="{H-2}" fill="url(#shim{idx})">
-      <animate attributeName="x" values="-200;{W};{W}" keyTimes="0;0.6;1" dur="6s" begin="{idx*1.3}s" repeatCount="indefinite"/>
-    </rect>
-  </g>
+    svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" role="img" aria-label="{esc(p["name"])}: {esc(p["brief"])}">
+  <defs>{film_defs(W, H, seed=20 + idx)}</defs>
+  {font_css(serif=True)}
+  <rect width="{W}" height="{H}" fill="{INK}"/>
+  {watermark(p.get("icon"))}
+  {reveal(0.2, numeral, dur=2.0)}
+  {reveal(0.5, head)}
+  {reveal(0.9, body)}
+  {reveal(1.3, foot)}
+  {film_overlay(W, H, bars=BAR, vignette=False)}
 </svg>
 '''
-    write_svg(f"assets/{fname}", svg)
+    write_svg(f"assets/card_{p['id']}.svg", svg)
 
 
 def build():
     d = collect()
     for i, p in enumerate(profile()["projects"]):
-        chips = [(c, False) for c in p["chips"]]
-        if p["id"] == "bugbouncer":
-            chips.insert(0, (f"{d['bugbouncer_stars']}★", True))
-        card(f"card_{p['id']}.svg", i, p["name"], p["repo"],
-             p["brief"], chips, p.get("icon"), f"{i+1:02d}")
+        card(i, p, d["bugbouncer_stars"] if p["id"] == "bugbouncer" else None)
 
 
 if __name__ == "__main__":

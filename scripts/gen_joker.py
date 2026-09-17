@@ -8,7 +8,7 @@ card, a dossier set like a card's rules text.
 """
 
 from lib import (INK, SILVER, SILVER_DIM, ASH, BLOOD, SERIF, MONO,
-                 esc, font_css, film_defs, film_overlay, write_svg, profile)
+                 esc, font_css, film_defs, film_overlay, write_svg, profile, reveal)
 
 W, H = 860, 480
 CX, CY, CW, CH = 120, 40, 280, 400       # card box
@@ -94,10 +94,6 @@ def dossier(me, stack):
         ("carries", " · ".join(stack)),
     ]
     out = []
-
-    def reveal(delay, body):
-        return (f'<g opacity="0"><animate attributeName="opacity" from="0" to="1" '
-                f'dur="1.2s" begin="{delay}s" fill="freeze"/>{body}</g>')
 
     out.append(reveal(1.0, f'<text x="{X}" y="132" font-family="{MONO}" font-size="10" '
                            f'letter-spacing="3.5" fill="{ASH}">{lines[0][1]}</text>'))

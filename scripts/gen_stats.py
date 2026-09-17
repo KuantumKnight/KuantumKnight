@@ -1,70 +1,60 @@
 """
-stats.svg — the live metrics console.
+stats.svg — the ledger.
 
-a hand-built terminal readout of real numbers (stars, repos, followers, language
-mix), pulled live by the pipeline. deliberately NOT the github-readme-stats card.
+three live counts set as big serif numerals, then the language mix as hairline
+rules. real numbers from the pipeline, fading in once.
 """
 
-from lib import (BG, PANEL, BORDER, GRID, GREEN, CYAN, WHITE, GREY,
-                 RED, AMBER, LIME, MONO, esc, write_svg, collect)
+from lib import (INK, HAIRLINE, SILVER, SILVER_DIM, ASH, SERIF, MONO, esc,
+                 font_css, film_defs, film_overlay, write_svg, collect, reveal,
+                 panel_head)
 
 W, H = 430, 300
 
-
-def kpi(x, value, label):
-    return (f'<text x="{x}" y="86" text-anchor="middle" font-size="30" '
-            f'font-weight="700" fill="{GREEN}" font-family="{MONO}">{esc(value)}</text>'
-            f'<text x="{x}" y="104" text-anchor="middle" font-size="11" '
-            f'fill="{GREY}" font-family="{MONO}">{esc(label)}</text>')
-
-
-def bar(y, name, pct):
-    tx, tw = 132, 220                       # track x / width
-    fw = max(4, int(tw * pct / 100))
-    return (
-        f'<text x="20" y="{y+12}" font-size="13" fill="{WHITE}" font-family="{MONO}">{esc(name)}</text>'
-        f'<rect x="{tx}" y="{y}" width="{tw}" height="14" rx="3" fill="{GRID}"/>'
-        f'<rect x="{tx}" y="{y}" width="{fw}" height="14" rx="3" fill="{GREEN}"/>'
-        f'<text x="{tx+tw+8}" y="{y+12}" font-size="12" fill="{CYAN}" font-family="{MONO}">{pct}%</text>'
-    )
-
-
-# keep labels short enough to never crash into the bar track
+# keep labels short enough to never crash into the rule
 ALIASES = {"jupyter notebook": "jupyter", "objective-c": "objc",
            "dockerfile": "docker"}
 
 
 def label(name):
-    n = ALIASES.get(name.lower(), name.lower())
-    return n[:12]
+    return ALIASES.get(name.lower(), name.lower())[:12]
+
+
+def count(x, value, name):
+    return (f'<text x="{x}" y="112" font-family="{SERIF}" font-size="50" '
+            f'fill="{SILVER}">{esc(value)}</text>'
+            f'<text x="{x + 2}" y="132" font-family="{MONO}" font-size="10" '
+            f'letter-spacing="2" fill="{ASH}">{esc(name.upper())}</text>')
+
+
+def lang(y, name, pct):
+    tx, tw = 128, 230
+    fw = max(2, round(tw * pct / 100))
+    return (f'<text x="24" y="{y + 4}" font-family="{MONO}" font-size="11.5" '
+            f'fill="{SILVER_DIM}">{esc(name)}</text>'
+            f'<rect x="{tx}" y="{y}" width="{tw}" height="1" fill="{HAIRLINE}"/>'
+            f'<rect x="{tx}" y="{y - 1}" width="{fw}" height="3" fill="{SILVER}"/>'
+            f'<text x="{W - 24}" y="{y + 4}" text-anchor="end" font-family="{MONO}" '
+            f'font-size="11" fill="{SILVER_DIM}">{pct}%</text>')
 
 
 def build():
     d = collect()
-    bars, y = [], 158
-    for name, pct in d["langs"][:5]:
-        bars.append(bar(y, label(name), pct))
-        y += 23
+    langs = "".join(lang(180 + i * 18, label(n), p)
+                    for i, (n, p) in enumerate(d["langs"][:5]))
+    counts = (count(24, str(d["stars"]), "stars")
+              + count(160, str(d["repos"]), "repos")
+              + count(296, str(d["followers"]), "followers"))
 
-    svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" role="img" aria-label="live stats: {d['stars']} stars, {d['repos']} repos">
-  <rect x="1" y="1" width="{W-2}" height="{H-2}" rx="10" fill="{BG}" stroke="{BORDER}" stroke-width="1.5"/>
-  <rect x="1" y="1" width="{W-2}" height="34" rx="10" fill="{PANEL}"/>
-  <rect x="1" y="24" width="{W-2}" height="11" fill="{PANEL}"/>
-  <line x1="1" y1="35" x2="{W-1}" y2="35" stroke="{BORDER}" stroke-width="1.5"/>
-  <circle cx="22" cy="18" r="5" fill="{RED}" opacity="0.85"/>
-  <circle cx="40" cy="18" r="5" fill="{AMBER}" opacity="0.85"/>
-  <circle cx="58" cy="18" r="5" fill="{LIME}" opacity="0.85"/>
-  <text x="{W-16}" y="22" text-anchor="end" font-size="12" fill="{GREY}" font-family="{MONO}">~/stats $ ./metrics --live</text>
-
-  {kpi(78, str(d['stars'])+'★', 'stars')}
-  {kpi(215, str(d['repos']), 'repos')}
-  {kpi(352, str(d['followers']), 'followers')}
-
-  <line x1="20" y1="124" x2="{W-20}" y2="124" stroke="{BORDER}" stroke-width="1"/>
-  <text x="20" y="146" font-size="12" fill="{GREY}" font-family="{MONO}">// language distribution</text>
-  {''.join(bars)}
-
-  <text x="20" y="{H-14}" font-size="11" fill="{GREY}" font-family="{MONO}">last sync · {esc(d['generated'])}</text>
+    svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" role="img" aria-label="{d['stars']} stars, {d['repos']} public repositories, {d['followers']} followers">
+  <defs>{film_defs(W, H, seed=31)}</defs>
+  {font_css(serif=True)}
+  <rect width="{W}" height="{H}" fill="{INK}"/>
+  {panel_head(W, "ledger", "public github")}
+  {reveal(0.3, counts, dur=1.8)}
+  {reveal(1.0, f'<text x="24" y="158" font-family="{MONO}" font-size="10" letter-spacing="2" fill="{ASH}">LANGUAGES, BY BYTES</text>{langs}')}
+  <text x="24" y="{H - 20}" font-family="{MONO}" font-size="10" fill="{ASH}">counted {esc(d['generated'])}</text>
+  {film_overlay(W, H, vignette=False)}
 </svg>
 '''
     write_svg("assets/stats.svg", svg)

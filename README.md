@@ -48,7 +48,7 @@
 <p align="center">
   <img src="assets/stats.svg" width="416" alt="public repositories, stars, followers, and languages">
   &nbsp;
-  <img src="assets/ops.svg" width="416" alt="recent commits">
+  <img src="assets/ops.svg" width="416" alt="recent pushes">
 </p>
 <p align="center">
   <img src="assets/contrib.svg" width="840" alt="contribution calendar for the past year">

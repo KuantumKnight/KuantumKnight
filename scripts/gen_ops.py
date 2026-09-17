@@ -1,12 +1,12 @@
 """
-ops.svg — recent activity feed.
+ops.svg — the log.
 
-an auto-updating `tail -f` of recent pushes/repos, in-theme. proves you're active
-without you ever touching it.
+the last few commits, set as a plain log: date, repo, message. the newest
+entry carries the frame's one red mark. rows fade in top to bottom.
 """
 
-from lib import (BG, PANEL, BORDER, GREEN, CYAN, WHITE, GREY,
-                 RED, AMBER, LIME, MONO, esc, write_svg, collect)
+from lib import (INK, SILVER, SILVER_DIM, ASH, BLOOD, MONO, esc, font_css,
+                 film_defs, film_overlay, write_svg, collect, reveal, panel_head)
 
 W, H = 430, 300
 
@@ -18,47 +18,32 @@ def trunc(s, n):
 
 def build():
     d = collect()
-    events = d["events"][:7]
+    events = d["events"][:6]
     if not events:
         events = [{"name": "KuantumKnight", "date": d["generated_date"],
-                   "desc": "the readme", "stars": 1, "lang": ""}]
+                   "desc": "the readme"}]
 
-    rows, y = [], 60
-    for e in events:
-        mmdd = e["date"][5:] if e.get("date") else "--"
-        name = trunc(e["name"], 22)
-        meta = e.get("desc") or e.get("lang") or ""
-        meta = trunc(meta, 30)
-        star = f'  {e["stars"]}★' if e.get("stars") else ""
-        rows.append(
-            f'<text x="20" y="{y}" font-size="13" font-family="{MONO}">'
-            f'<tspan fill="{GREY}">[{esc(mmdd)}] </tspan>'
-            f'<tspan fill="{GREEN}">push </tspan>'
-            f'<tspan fill="{WHITE}">{esc(name)}</tspan>'
-            f'<tspan fill="{CYAN}">{esc(star)}</tspan>'
-            f'</text>'
-            f'<text x="78" y="{y+15}" font-size="11" fill="{GREY}" font-family="{MONO}">{esc(meta)}</text>'
-        )
-        y += 31
+    rows = []
+    for i, e in enumerate(events):
+        y = 76 + i * 34
+        mmdd = e["date"][5:].replace("-", ".") if e.get("date") else "--.--"
+        mark = (f'<rect x="24" y="{y - 7}" width="5" height="5" fill="{BLOOD}"/>'
+                if i == 0 else "")
+        body = (f'{mark}<text y="{y}" font-family="{MONO}" font-size="11.5">'
+                f'<tspan x="38" fill="{ASH}">{esc(mmdd)}</tspan>'
+                f'<tspan x="84" fill="{SILVER}">{esc(trunc(e["name"], 36))}</tspan></text>'
+                f'<text x="84" y="{y + 15}" font-family="{MONO}" font-size="10.5" '
+                f'fill="{SILVER_DIM}">{esc(trunc(e.get("desc") or e.get("lang"), 50))}</text>')
+        rows.append(reveal(0.3 + i * 0.2, body, dur=0.9))
 
-    svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" role="img" aria-label="recent activity feed">
-  <rect x="1" y="1" width="{W-2}" height="{H-2}" rx="10" fill="{BG}" stroke="{BORDER}" stroke-width="1.5"/>
-  <rect x="1" y="1" width="{W-2}" height="34" rx="10" fill="{PANEL}"/>
-  <rect x="1" y="24" width="{W-2}" height="11" fill="{PANEL}"/>
-  <line x1="1" y1="35" x2="{W-1}" y2="35" stroke="{BORDER}" stroke-width="1.5"/>
-  <circle cx="22" cy="18" r="5" fill="{RED}" opacity="0.85"/>
-  <circle cx="40" cy="18" r="5" fill="{AMBER}" opacity="0.85"/>
-  <circle cx="58" cy="18" r="5" fill="{LIME}" opacity="0.85"/>
-  <text x="{W-16}" y="22" text-anchor="end" font-size="12" fill="{GREY}" font-family="{MONO}">~/ops $ tail activity.log</text>
-
-  {''.join(rows)}
-
-  <g>
-    <circle cx="26" cy="{H-18}" r="4" fill="{GREEN}">
-      <animate attributeName="opacity" values="1;0.2;1" dur="1.8s" repeatCount="indefinite"/>
-    </circle>
-    <text x="38" y="{H-14}" font-size="11" fill="{GREY}" font-family="{MONO}">live · rebuilt {esc(d['generated_date'])}</text>
-  </g>
+    svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" role="img" aria-label="recent pushes">
+  <defs>{film_defs(W, H, seed=37)}</defs>
+  {font_css()}
+  <rect width="{W}" height="{H}" fill="{INK}"/>
+  {panel_head(W, "log", "recent pushes")}
+  {"".join(rows)}
+  <text x="24" y="{H - 20}" font-family="{MONO}" font-size="10" fill="{ASH}">checked {esc(d['generated'])}</text>
+  {film_overlay(W, H, vignette=False)}
 </svg>
 '''
     write_svg("assets/ops.svg", svg)

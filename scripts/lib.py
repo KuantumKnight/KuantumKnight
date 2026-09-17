@@ -31,12 +31,6 @@ BLOOD      = "#b3261e"   # the single accent
 # silver ramp for contribution intensity (level 0..4)
 RAMP = ["#161618", "#2e2d2b", "#55534e", "#8a877f", SILVER]
 
-# legacy names — kept so generators not yet restyled still build, now in noir.
-BG, BORDER, GRID = INK, HAIRLINE, RAMP[0]
-GREEN, GREEN_DIM, GREEN_LO = SILVER, SILVER_DIM, "#2e2d2b"
-CYAN, WHITE, GREY = SILVER, SILVER, ASH
-RED = AMBER = LIME = BLOOD
-
 # font stacks. the named faces are embedded per-svg via font_css();
 # the rest is a fallback if a renderer ignores embedded fonts.
 SERIF = "'KK Serif','Instrument Serif',Georgia,'Times New Roman',serif"
@@ -356,6 +350,23 @@ def film_overlay(w, h, bars=0, vignette=True):
     if bars:
         out += (f'<rect width="{w}" height="{bars}" fill="#000"/>'
                 f'<rect y="{h-bars}" width="{w}" height="{bars}" fill="#000"/>')
+    return out
+
+
+def reveal(delay, body, dur=1.4):
+    """fade a group in once, `delay` seconds after load, then hold."""
+    return (f'<g opacity="0"><animate attributeName="opacity" from="0" to="1" '
+            f'dur="{dur}s" begin="{delay}s" fill="freeze"/>{body}</g>')
+
+
+def panel_head(w, label, right=""):
+    """the quiet header every data panel shares: label left, note right, a rule."""
+    out = (f'<text x="24" y="34" font-family="{MONO}" font-size="10" '
+           f'letter-spacing="3.5" fill="{ASH}">{esc(label.upper())}</text>'
+           f'<rect x="24" y="46" width="{w-48}" height="1" fill="{HAIRLINE}"/>')
+    if right:
+        out += (f'<text x="{w-24}" y="34" text-anchor="end" font-family="{MONO}" '
+                f'font-size="10" fill="{ASH}">{esc(right)}</text>')
     return out
 
 
