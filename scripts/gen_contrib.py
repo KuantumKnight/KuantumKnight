@@ -13,13 +13,13 @@ from lib import (INK, SILVER, ASH, BLOOD, RAMP, MONO, font_css, film_defs,
 
 CELL, GAP = 11, 3
 STRIDE = CELL + GAP
-GX, GY = 52, 92          # grid origin (room for header, weekday + month labels)
+W = 860
+GX, GY = 76, 92          # grid origin (room for header, weekday + month labels)
 COLS = 53
 P = 8.0                  # full scan cycle (s)
 SWEEP = 0.85             # fraction of the cycle the line takes to cross
 DECAY = 0.46             # fraction of the cycle a flared day takes to settle
 REST = 0.35              # resting opacity of an active day between passes
-W = GX + COLS * STRIDE + 30
 H = 236
 
 

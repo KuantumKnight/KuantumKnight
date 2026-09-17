@@ -12,7 +12,7 @@ from lib import (INK, HAIRLINE, SILVER, SILVER_DIM, ASH, SERIF, MONO, esc,
                  font_css, film_defs, film_overlay, write_svg, profile, reveal,
                  panel_head)
 
-W = 416
+W = 430
 ROW_H, HEAD_H = 50, 56
 
 
