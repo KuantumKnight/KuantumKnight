@@ -9,7 +9,7 @@ clickable despite being an image.
 """
 
 from lib import (BG, PANEL, BORDER, GREEN, GREY, WHITE, CYAN, RED, AMBER, LIME,
-                 MONO, esc, write_svg, collect)
+                 MONO, esc, write_svg, collect, profile)
 from icons import CARD_ICONS
 
 W, H = 860, 168
@@ -42,6 +42,8 @@ def chip(x, y, text, accent=False):
 def watermark(icon):
     """a baked Lucide line icon (24x24) as a faint neon watermark, right side.
     scaled ~4.5x; stroke-width 0.55 in local units renders ~2.5px at that scale."""
+    if icon not in CARD_ICONS:
+        return ""
     inner = CARD_ICONS[icon]
     return (f'<g opacity="0.10" transform="translate(705,30) scale(4.5)" '
             f'fill="none" stroke="{GREEN}" stroke-width="0.55" '
@@ -104,22 +106,12 @@ def card(fname, idx, name, repo, brief, chips, icon, idx_accent="01"):
 
 def build():
     d = collect()
-    bb = d["bugbouncer_stars"]
-    card("card_bugbouncer.svg", 0, "bugbouncer",
-         "KuantumKnight/bugbouncer",
-         "local-first stability engine. catches architectural failures your tests can't see — then hands you the fix.",
-         [(f"{bb}★", True), ("typescript", False), ("sqlite-wasm", False), ("next.js 16", False)],
-         "bug", "01")
-    card("card_synthetix.svg", 1, "synthetix",
-         "KuantumKnight/Synthetix",
-         "finds duplicate defects and rewrites weak bug reports into ones engineers actually act on.",
-         [("python", False), ("defect-dedup", False), ("triage", False)],
-         "dup", "02")
-    card("card_zeroday.svg", 2, "zeroday heist · writeups",
-         "KuantumKnight/ZeroDayHeist_CTF_Writeups",
-         "forensics, reverse engineering, osint, steganography, crypto. full notes, not just flags.",
-         [("17 flags", True), ("ctf", False), ("writeups", False)],
-         "flag", "03")
+    for i, p in enumerate(profile()["projects"]):
+        chips = [(c, False) for c in p["chips"]]
+        if p["id"] == "bugbouncer":
+            chips.insert(0, (f"{d['bugbouncer_stars']}★", True))
+        card(f"card_{p['id']}.svg", i, p["name"], p["repo"],
+             p["brief"], chips, p.get("icon"), f"{i+1:02d}")
 
 
 if __name__ == "__main__":

@@ -53,10 +53,11 @@ def divider():
 
 
 def build():
-    slate("banner_work.svg", "01", "The Jobs", "three that got out clean")
-    slate("banner_telemetry.svg", "02", "The Numbers", "counted every six hours")
-    slate("banner_stack.svg", "03", "The Crew", "tools of the trade")
-    slate("banner_contact.svg", "04", "The Getaway", "where to find me")
+    slate("banner_work.svg", "01", "Work", "current projects")
+    slate("banner_notes.svg", "02", "Field Notes", "writeups and older work")
+    slate("banner_telemetry.svg", "03", "Record", "public activity, refreshed every six hours")
+    slate("banner_stack.svg", "04", "Kit", "what i build with")
+    slate("banner_contact.svg", "05", "Contact", "email, github, linkedin")
     divider()
 
 

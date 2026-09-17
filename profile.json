@@ -2,55 +2,53 @@
   "identity": {
     "name": "Sarvesh M",
     "handle": "KuantumKnight",
-    "role": "AI systems · application security · full-stack"
+    "role": "ai systems · application security · full-stack",
+    "tagline": "local-first ai, and the security work around it."
   },
   "projects": [
     {
       "id": "lotusmcp",
       "name": "LotusMCP",
       "repo": "KuantumKnight/lotusMCP",
-      "brief": "Autonomous CTF case-management MCP server.",
-      "detail": "Deterministic event log, graph projection, bounded working state.",
+      "brief": "An MCP server that lets an LLM work a CTF from a Kali box.",
+      "detail": "Every command and finding lands in one hash-chained event log; everything else is rebuilt from it.",
       "chips": ["python", "mcp", "sqlite", "kali"],
-      "poster": "poster-lotus.jpg",
-      "theme": "black"
+      "icon": "flag"
     },
     {
       "id": "bugbouncer",
       "name": "bugbouncer",
       "repo": "KuantumKnight/bugbouncer",
-      "brief": "Local-first stability engine.",
-      "detail": "Finds architectural failures and points to the fix.",
+      "brief": "A bug tracker that runs entirely in the browser.",
+      "detail": "No server. SQLite runs in WebAssembly and the data stays on your machine.",
       "chips": ["typescript", "sqlite-wasm", "next.js"],
-      "poster": "poster-signal.jpg",
-      "theme": "red"
+      "icon": "bug"
     },
     {
       "id": "lily",
       "name": "lily",
       "repo": "KuantumKnight/lily",
-      "brief": "Local-first personal AI operating-system layer.",
-      "detail": "Private infrastructure for a persistent personal assistant.",
-      "chips": ["python", "local-first", "ai systems"],
-      "poster": "poster-lily.jpg",
-      "theme": "paper"
+      "brief": "A personal assistant that lives on your own machine.",
+      "detail": "Open models through Ollama, memory on disk. The first version is fully local.",
+      "chips": ["python", "ollama", "local-first"],
+      "icon": null
     }
   ],
   "field_notes": [
     {
-      "name": "BLACKBOX Writeups",
-      "repo": "KuantumKnight/BLACKBOX_Writeups",
-      "note": "Six-module engineering challenge · 6/6 complete"
-    },
-    {
       "name": "ZeroDay Heist",
       "repo": "KuantumKnight/ZeroDayHeist_CTF_Writeups",
-      "note": "17 CTF writeups · forensics, RE, OSINT, steg, crypto"
+      "note": "17 challenges from ZeroDay Heist 2026: forensics, reversing, OSINT, stego, crypto"
+    },
+    {
+      "name": "BLACKBOX",
+      "repo": "KuantumKnight/BLACKBOX_Writeups",
+      "note": "a six-part engineering challenge, all six solved"
     },
     {
       "name": "Synthetix",
       "repo": "KuantumKnight/Synthetix",
-      "note": "Duplicate-defect finder and bug-report enhancer"
+      "note": "finds duplicate bug reports and rewrites the vague ones"
     }
   ],
   "stack": [

@@ -68,10 +68,10 @@ def build():
         reveal(2.1, f'<text x="{X-3}" y="186" font-family="{SERIF}" font-size="62" '
                     f'fill="{SILVER}">{esc(me["handle"])}</text>', dur=2.0),
         reveal(3.0, f'<text x="{X}" y="222" font-family="{SERIF}" font-style="italic" '
-                    f'font-size="22" fill="{SILVER_DIM}">starring {esc(me["name"].lower())}</text>'),
+                    f'font-size="22" fill="{SILVER_DIM}">{esc(me["name"].lower())}</text>'),
         reveal(3.8, f'<rect x="{X}" y="246" width="6" height="6" fill="{BLOOD}"/>'
                     f'<text x="{X+16}" y="253" font-family="{MONO}" font-size="12" '
-                    f'fill="{SILVER_DIM}">builds things. then breaks them.</text>'),
+                    f'fill="{SILVER_DIM}">{esc(me["tagline"])}</text>'),
         reveal(4.4, f'<text x="{X+16}" y="273" font-family="{MONO}" font-size="11" '
                     f'fill="{ASH}">{esc(me["role"].lower())}</text>'),
     ]
@@ -79,7 +79,7 @@ def build():
                        f'font-family="{MONO}" font-size="9" letter-spacing="3" '
                        f'fill="{ASH}">SC. 00 — COLD OPEN</text>')
 
-    svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" role="img" aria-label="{esc(me["handle"])} — a rotating ascii spade beside the title: builds things, then breaks them">
+    svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" role="img" aria-label="{esc(me["handle"])} — a rotating ascii spade beside the title: {esc(me["tagline"])}">
   <defs>{film_defs(W, H, seed=3)}</defs>
   {font_css(serif=True, italic=True)}
   <rect width="{W}" height="{H}" fill="{INK}"/>
