@@ -13,6 +13,8 @@ import gen_contrib
 import gen_stack
 import gen_cards
 import gen_sections
+import gen_ace
+import gen_notes
 
 
 def main():
@@ -20,7 +22,9 @@ def main():
     for name, mod in [("hero", gen_hero), ("stats", gen_stats),
                       ("ops", gen_ops), ("contrib", gen_contrib),
                       ("stack", gen_stack), ("cards", gen_cards),
-                      ("sections", gen_sections)]:
+                      ("sections", gen_sections),
+                      ("ace", gen_ace),
+                      ("notes", gen_notes)]:
         try:
             mod.build()
         except Exception as e:  # noqa: BLE001 — never let one panel sink the build

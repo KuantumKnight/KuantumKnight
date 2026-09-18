@@ -1,125 +1,141 @@
 """
-card_*.svg — cinematic project "dossier" cards.
+card_*.svg — one frame per featured project.
 
-one tactical readout per featured project: index, name, repo path, terse brief,
-stat chips, a faint watermark icon (baked Lucide line art), HUD corner brackets,
-a slow scan shimmer.
-each card is wrapped in a markdown link in the README, so the whole card is
-clickable despite being an image.
+a thin letterboxed still: a large dim serif numeral, the name, a one-line
+brief, a sentence of detail, and the stack set as plain text. the right half
+carries the project's engraved poster as a 1-bit dither (keyed by project id
+in scripts/poster_images.py), fading into the ink behind the text. copy comes from profile.json. each card is wrapped in a link in the
+README, so the whole frame is clickable.
 """
 
-from lib import (BG, PANEL, BORDER, GREEN, GREY, WHITE, CYAN, RED, AMBER, LIME,
-                 MONO, esc, write_svg, collect)
-from icons import CARD_ICONS
+import math
 
-W, H = 860, 168
+from lib import (INK, SILVER, SILVER_DIM, ASH, BLOOD, SERIF, MONO, esc,
+                 font_css, film_defs, film_overlay, write_svg, collect, profile,
+                 reveal)
+from poster_images import POSTERS
+
+W, H = 860, 220
+BAR = 10
+TX = 190                     # text column
 
 
-def wrap(text, n=58, maxlines=2):
+def wrap(text, n=62, maxlines=2):
     words, lines, cur = text.split(), [], ""
     for w in words:
-        if len(cur) + len(w) + 1 <= n:
-            cur = (cur + " " + w).strip()
-        else:
+        if cur and len(cur) + len(w) + 1 > n:
             lines.append(cur)
             cur = w
-        if len(lines) == maxlines:
-            break
-    if cur and len(lines) < maxlines:
-        lines.append(cur)
+        else:
+            cur = f"{cur} {w}".strip()
+    lines.append(cur)
     return lines[:maxlines]
 
 
-def chip(x, y, text, accent=False):
-    w = len(text) * 7.4 + 18
-    col = CYAN if accent else GREEN
-    return (f'<rect x="{x}" y="{y}" width="{w:.0f}" height="20" rx="4" '
-            f'fill="{col}" fill-opacity="0.08" stroke="{col}" stroke-opacity="0.5"/>'
-            f'<text x="{x+w/2:.0f}" y="{y+14}" text-anchor="middle" font-size="11" '
-            f'fill="{col}" font-family="{MONO}">{esc(text)}</text>'), x + w + 8
+# -------------------------------------------------------- backdrop ----
+
+PX = 430                     # poster occupies the right half
 
 
-def watermark(icon):
-    """a baked Lucide line icon (24x24) as a faint neon watermark, right side.
-    scaled ~4.5x; stroke-width 0.55 in local units renders ~2.5px at that scale."""
-    inner = CARD_ICONS[icon]
-    return (f'<g opacity="0.10" transform="translate(705,30) scale(4.5)" '
-            f'fill="none" stroke="{GREEN}" stroke-width="0.55" '
-            f'stroke-linecap="round" stroke-linejoin="round">{inner}</g>')
-
-
-def card(fname, idx, name, repo, brief, chips, icon, idx_accent="01"):
-    chip_svg, cx0 = "", 92
-    for i, (t, acc) in enumerate(chips):
-        s, cx0 = chip(cx0, 128, t, acc)
-        chip_svg += s
-    brief_lines = wrap(brief)
-    brief_svg = "".join(
-        f'<text x="92" y="{96+i*18}" font-size="13" fill="{WHITE}" font-family="{MONO}">{esc(ln)}</text>'
-        for i, ln in enumerate(brief_lines))
-
-    svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" role="img" aria-label="{esc(name)} — {esc(brief)}">
-  <defs>
-    <linearGradient id="shim{idx}" x1="0" x2="1" y1="0" y2="0">
-      <stop offset="0" stop-color="{GREEN}" stop-opacity="0"/>
-      <stop offset="0.5" stop-color="{GREEN}" stop-opacity="0.06"/>
-      <stop offset="1" stop-color="{GREEN}" stop-opacity="0"/>
+def backdrop(key):
+    """the dithered poster, tinted silver, fading in from the text side."""
+    w, h, b64 = POSTERS[key]
+    cx, cy = PX + w / 2, H / 2
+    return f'''<defs>
+    <filter id="tint" color-interpolation-filters="sRGB">
+      <feColorMatrix values="0 0 0 0 0.847  0 0 0 0 0.835  0 0 0 0 0.808  0.3 0.3 0.3 0 0"/>
+    </filter>
+    <linearGradient id="fadeg" x1="{PX + 100}" x2="{PX + 300}" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#000"/><stop offset="1" stop-color="#fff"/>
     </linearGradient>
-    <clipPath id="cclip{idx}"><rect x="1" y="1" width="{W-2}" height="{H-2}" rx="10"/></clipPath>
+    <mask id="fade" maskUnits="userSpaceOnUse" x="0" y="0" width="{W}" height="{H}">
+      <rect width="{W}" height="{H}" fill="url(#fadeg)"/>
+    </mask>
   </defs>
+  <g mask="url(#fade)" opacity="0">
+    <animate attributeName="opacity" from="0" to="0.62" dur="2.4s" begin="0.2s" fill="freeze"/>
+    <g transform="translate({cx} {cy})"><g>
+      <animateTransform attributeName="transform" type="scale"
+        values="1.04;1" dur="6s" begin="0.2s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.2 0.6 0.3 1"/>
+      <image x="{-w / 2}" y="{-h / 2}" width="{w}" height="{h}" filter="url(#tint)"
+             style="image-rendering:pixelated" href="data:image/png;base64,{b64}"/>
+    </g></g>
+  </g>'''
 
-  <rect x="1" y="1" width="{W-2}" height="{H-2}" rx="10" fill="{BG}" stroke="{BORDER}" stroke-width="1.5"/>
-  <rect x="2" y="2" width="5" height="{H-4}" fill="{GREEN}" opacity="0.85">
-    <animate attributeName="opacity" values="0.85;0.4;0.85" dur="3s" repeatCount="indefinite"/>
-  </rect>
 
-  <!-- watermark icon -->
-  {watermark(icon)}
+def _star(cx, cy, r):
+    pts = []
+    for k in range(10):
+        rad = r if k % 2 == 0 else r * 0.42
+        a = math.pi / 2 + k * math.pi / 5
+        pts.append(f"{cx + rad * math.cos(a):.1f},{cy - rad * math.sin(a):.1f}")
+    return "M" + " L".join(pts) + " Z"
 
-  <!-- index -->
-  <text x="34" y="86" font-size="46" font-weight="700" fill="{GREEN}" fill-opacity="0.16" font-family="{MONO}">{idx_accent}</text>
 
-  <!-- title + repo -->
-  <text x="92" y="48" font-size="22" font-weight="700" fill="{GREEN}" font-family="{MONO}">{esc(name)}</text>
-  <text x="92" y="70" font-size="12" fill="{GREY}" font-family="{MONO}">› github.com/{esc(repo)}</text>
+def star_count(x, stars):
+    """a red star and the star count, counting up once beside the name.
+    the last frame is visible by default so a renderer that ignores
+    animation still shows the real number."""
+    n, t0, dur = 12, 1.0, 1.4
+    frames = []
+    for k in range(1, n + 1):
+        on = t0 + dur * (k - 1) / n
+        off = t0 + dur * k / n
+        last = k == n
+        anim = (f'<set attributeName="visibility" to="hidden" begin="0s"/>'
+                f'<set attributeName="visibility" to="visible" begin="{on:.3f}s"/>')
+        if not last:
+            anim += f'<set attributeName="visibility" to="hidden" begin="{off:.3f}s"/>'
+        frames.append(
+            f'<text x="{x + 16}" y="94" font-family="{SERIF}" font-size="28" fill="{SILVER}" '
+            f'visibility="{"visible" if last else "hidden"}">{anim}{round(stars * k / n)}</text>')
+    digits = len(str(stars))
+    return (f'<path d="{_star(x + 5, 84, 6)}" fill="{BLOOD}"/>'
+            + "".join(frames)
+            + f'<text x="{x + 20 + digits * 14}" y="94" font-family="{MONO}" font-size="10" '
+              f'letter-spacing="1.5" fill="{ASH}">STARS</text>')
 
-  <!-- brief -->
-  {brief_svg}
 
-  <!-- chips -->
-  {chip_svg}
+def card(idx, p, stars=None):
+    num = f"{idx + 1:02d}"
+    tags = list(p["chips"])
+    detail = "".join(
+        f'<text x="{TX}" y="{156 + i * 17}" font-family="{MONO}" font-size="11.5" '
+        f'fill="{SILVER_DIM}">{esc(ln)}</text>'
+        for i, ln in enumerate(wrap(p["detail"])))
 
-  <!-- hud brackets + scan shimmer -->
-  <path d="M14,16 L14,8 L26,8" fill="none" stroke="{GREEN}" stroke-opacity="0.5"/>
-  <path d="M{W-14},{H-16} L{W-14},{H-8} L{W-26},{H-8}" fill="none" stroke="{GREEN}" stroke-opacity="0.5"/>
-  <g clip-path="url(#cclip{idx})">
-    <rect x="-200" y="1" width="200" height="{H-2}" fill="url(#shim{idx})">
-      <animate attributeName="x" values="-200;{W};{W}" keyTimes="0;0.6;1" dur="6s" begin="{idx*1.3}s" repeatCount="indefinite"/>
-    </rect>
-  </g>
+    numeral = (f'<text x="36" y="138" font-family="{SERIF}" font-size="118" '
+               f'fill="#2a2926">{num}</text>')
+    head = (f'<text x="{TX}" y="50" font-family="{MONO}" font-size="9.5" '
+            f'letter-spacing="1" fill="{ASH}">{esc(p["repo"])}</text>'
+            f'<text x="{TX - 2}" y="94" font-family="{SERIF}" font-size="40" '
+            f'fill="{SILVER}">{esc(p["name"])}</text>')
+    if stars:
+        head += star_count(TX + len(p["name"]) * 0.43 * 40 + 18, stars)
+    body = (f'<text x="{TX}" y="128" font-family="{SERIF}" font-size="20" '
+            f'fill="{SILVER}">{esc(p["brief"])}</text>{detail}')
+    foot = (f'<text x="{TX}" y="{H - 22}" font-family="{MONO}" font-size="11" '
+            f'letter-spacing="0.5" fill="{ASH}">{esc("  ·  ".join(tags))}</text>')
+
+    svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" role="img" aria-label="{esc(p["name"])}: {esc(p["brief"])}">
+  <defs>{film_defs(W, H, seed=20 + idx)}</defs>
+  {font_css(serif=True)}
+  <rect width="{W}" height="{H}" fill="{INK}"/>
+  {backdrop(p["id"])}
+  {reveal(0.2, numeral, dur=2.0)}
+  {reveal(0.5, head)}
+  {reveal(0.9, body)}
+  {reveal(1.3, foot)}
+  {film_overlay(W, H, bars=BAR, vignette=False)}
 </svg>
 '''
-    write_svg(f"assets/{fname}", svg)
+    write_svg(f"assets/card_{p['id']}.svg", svg)
 
 
 def build():
     d = collect()
-    bb = d["bugbouncer_stars"]
-    card("card_bugbouncer.svg", 0, "bugbouncer",
-         "KuantumKnight/bugbouncer",
-         "local-first stability engine. catches architectural failures your tests can't see — then hands you the fix.",
-         [(f"{bb}★", True), ("typescript", False), ("sqlite-wasm", False), ("next.js 16", False)],
-         "bug", "01")
-    card("card_synthetix.svg", 1, "synthetix",
-         "KuantumKnight/Synthetix",
-         "finds duplicate defects and rewrites weak bug reports into ones engineers actually act on.",
-         [("python", False), ("defect-dedup", False), ("triage", False)],
-         "dup", "02")
-    card("card_zeroday.svg", 2, "zeroday heist · writeups",
-         "KuantumKnight/ZeroDayHeist_CTF_Writeups",
-         "forensics, reverse engineering, osint, steganography, crypto. full notes, not just flags.",
-         [("17 flags", True), ("ctf", False), ("writeups", False)],
-         "flag", "03")
+    for i, p in enumerate(profile()["projects"]):
+        card(i, p, d["bugbouncer_stars"] if p["id"] == "bugbouncer" else None)
 
 
 if __name__ == "__main__":

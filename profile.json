@@ -1,0 +1,160 @@
+{
+  "identity": {
+    "name": "Sarvesh M",
+    "handle": "KuantumKnight",
+    "role": "ai systems · application security · full-stack",
+    "tagline": "local-first ai, and the security work around it."
+  },
+  "projects": [
+    {
+      "id": "lotusmcp",
+      "name": "LotusMCP",
+      "repo": "KuantumKnight/lotusMCP",
+      "brief": "An MCP server that lets an LLM work a CTF from a Kali box.",
+      "detail": "Every command and finding lands in one hash-chained event log; everything else is rebuilt from it.",
+      "chips": [
+        "python",
+        "mcp",
+        "sqlite",
+        "kali"
+      ]
+    },
+    {
+      "id": "bugbouncer",
+      "name": "bugbouncer",
+      "repo": "KuantumKnight/bugbouncer",
+      "brief": "A bug tracker that runs entirely in the browser.",
+      "detail": "No server. SQLite runs in WebAssembly and the data stays on your machine.",
+      "chips": [
+        "typescript",
+        "sqlite-wasm",
+        "next.js"
+      ]
+    },
+    {
+      "id": "lily",
+      "name": "lily",
+      "repo": "KuantumKnight/lily",
+      "brief": "A personal assistant that lives on your own machine.",
+      "detail": "Open models through Ollama, memory on disk. The first version is fully local.",
+      "chips": [
+        "python",
+        "ollama",
+        "local-first"
+      ]
+    }
+  ],
+  "stack": [
+    {
+      "name": "python",
+      "logo": "python"
+    },
+    {
+      "name": "typescript",
+      "logo": "typescript"
+    },
+    {
+      "name": "react",
+      "logo": "react"
+    },
+    {
+      "name": "fastapi",
+      "logo": "fastapi"
+    },
+    {
+      "name": "mcp",
+      "logo": null
+    },
+    {
+      "name": "sqlite",
+      "logo": null
+    },
+    {
+      "name": "next.js",
+      "logo": null
+    },
+    {
+      "name": "docker",
+      "logo": null
+    },
+    {
+      "name": "git",
+      "logo": "git"
+    },
+    {
+      "name": "kali linux",
+      "logo": "kalilinux"
+    }
+  ],
+  "contact": {
+    "github": "https://github.com/KuantumKnight",
+    "linkedin": "https://www.linkedin.com/in/s4rv3sh-m",
+    "email": "sarveshmknight@gmail.com"
+  },
+  "field_notes": {
+    "ctf": [
+      {
+        "name": "ExploitX 2026",
+        "repo": "KuantumKnight/ExploitX_CTF_Writeups",
+        "note": "1st overall with Kn1ghts, 27 writeups",
+        "count": "1st"
+      },
+      {
+        "name": "ZeroDay Heist 2026",
+        "repo": "KuantumKnight/ZeroDayHeist_CTF_Writeups",
+        "note": "forensics, reversing, OSINT, stego, crypto",
+        "count": "17 solves"
+      },
+      {
+        "name": "BLACKBOX",
+        "repo": "KuantumKnight/BLACKBOX_Writeups",
+        "note": "six-module challenge, C++17 solutions",
+        "count": "6/6"
+      },
+      {
+        "name": "CTF Arsenal",
+        "repo": "KuantumKnight/CTF_Arsenal",
+        "note": "field guides for every category",
+        "count": "guide"
+      },
+      {
+        "name": "All Writeups",
+        "repo": "KuantumKnight/AllWriteups",
+        "note": "solves from other events, in one place",
+        "count": "index"
+      }
+    ],
+    "builds": [
+      {
+        "name": "forge",
+        "repo": "KuantumKnight/forge",
+        "note": "turns scattered bug reports into one queue",
+        "count": "python"
+      },
+      {
+        "name": "GDG LLM Sandbox",
+        "repo": "KuantumKnight/gdg_llm_sandbox",
+        "note": "prompt-injection challenge, GDG VIT Chennai",
+        "count": "python"
+      },
+      {
+        "name": "MIC Event Check-in",
+        "repo": "KuantumKnight/mic-event-checkin",
+        "note": "QR check-in desk that keeps working offline",
+        "count": "typescript"
+      },
+      {
+        "name": "Synthetix",
+        "repo": "KuantumKnight/Synthetix",
+        "note": "finds duplicate bug reports, fixes vague ones",
+        "count": "python"
+      },
+      {
+        "name": "Geometry Dash RL",
+        "repo": "KuantumKnight/geometry-dash-rl-ai-agent",
+        "note": "learning RL from the control loop up",
+        "count": "python"
+      }
+    ]
+  }
+}
