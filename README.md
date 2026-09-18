@@ -5,11 +5,11 @@
 -->
 
 <p align="center">
-  <img src="assets/hero.svg" width="100%" alt="KuantumKnight — local-first ai, and the security work around it">
+  <img src="assets/hero.svg?v=2" width="100%" alt="KuantumKnight — local-first ai, and the security work around it">
 </p>
 
 <p align="center">
-  <img src="assets/card_ace.svg" width="100%" alt="the ace of spades, crumpled, beside the billing block: Sarvesh M, as KuantumKnight; works in ai systems and application security">
+  <img src="assets/card_ace.svg?v=2" width="100%" alt="the ace of spades, crumpled, beside the billing block: Sarvesh M, as KuantumKnight; works in ai systems and application security">
 </p>
 
 <p align="center">
@@ -19,53 +19,53 @@
 
 <br>
 
-<p align="center"><img src="assets/banner_work.svg" width="100%" alt="01 — work: current projects"></p>
+<p align="center"><img src="assets/banner_work.svg?v=2" width="100%" alt="01 — work: current projects"></p>
 
 <p align="center">
-  <a href="https://github.com/KuantumKnight/lotusMCP"><img src="assets/card_lotusmcp.svg" width="100%" alt="LotusMCP — an MCP server that lets an LLM work a CTF from a Kali box"></a>
+  <a href="https://github.com/KuantumKnight/lotusMCP"><img src="assets/card_lotusmcp.svg?v=2" width="100%" alt="LotusMCP — an MCP server that lets an LLM work a CTF from a Kali box"></a>
 </p>
 <p align="center">
-  <a href="https://github.com/KuantumKnight/bugbouncer"><img src="assets/card_bugbouncer.svg" width="100%" alt="bugbouncer — a bug tracker that runs entirely in the browser"></a>
+  <a href="https://github.com/KuantumKnight/bugbouncer"><img src="assets/card_bugbouncer.svg?v=2" width="100%" alt="bugbouncer — a bug tracker that runs entirely in the browser"></a>
 </p>
 <p align="center">
-  <a href="https://github.com/KuantumKnight/lily"><img src="assets/card_lily.svg" width="100%" alt="lily — a personal assistant that lives on your own machine"></a>
+  <a href="https://github.com/KuantumKnight/lily"><img src="assets/card_lily.svg?v=2" width="100%" alt="lily — a personal assistant that lives on your own machine"></a>
 </p>
 
-<p align="center"><img src="assets/divider.svg" width="100%" alt=""></p>
+<p align="center"><img src="assets/divider.svg?v=2" width="100%" alt=""></p>
 
-<p align="center"><img src="assets/banner_notes.svg" width="100%" alt="02 — field notes: writeups and side builds"></p>
+<p align="center"><img src="assets/banner_notes.svg?v=2" width="100%" alt="02 — field notes: writeups and side builds"></p>
 
 <p align="center">
-  <img src="assets/notes_head_ctf.svg" width="50%" alt="writeups"><img src="assets/notes_head_builds.svg" width="50%" alt="other builds"><br>
-  <a href="https://github.com/KuantumKnight/ExploitX_CTF_Writeups"><img src="assets/note_exploitx-ctf-writeups.svg" width="50%" alt="ExploitX 2026: 1st overall with Kn1ghts, 27 writeups"></a><a href="https://github.com/KuantumKnight/forge"><img src="assets/note_forge.svg" width="50%" alt="forge: turns scattered bug reports into one queue"></a><br>
-  <a href="https://github.com/KuantumKnight/ZeroDayHeist_CTF_Writeups"><img src="assets/note_zerodayheist-ctf-writeups.svg" width="50%" alt="ZeroDay Heist 2026: forensics, reversing, OSINT, stego, crypto"></a><a href="https://github.com/KuantumKnight/gdg_llm_sandbox"><img src="assets/note_gdg-llm-sandbox.svg" width="50%" alt="GDG LLM Sandbox: prompt-injection challenge, GDG VIT Chennai"></a><br>
-  <a href="https://github.com/KuantumKnight/BLACKBOX_Writeups"><img src="assets/note_blackbox-writeups.svg" width="50%" alt="BLACKBOX: six-module challenge, C++17 solutions"></a><a href="https://github.com/KuantumKnight/mic-event-checkin"><img src="assets/note_mic-event-checkin.svg" width="50%" alt="MIC Event Check-in: QR check-in desk that keeps working offline"></a><br>
-  <a href="https://github.com/KuantumKnight/CTF_Arsenal"><img src="assets/note_ctf-arsenal.svg" width="50%" alt="CTF Arsenal: field guides for every category"></a><a href="https://github.com/KuantumKnight/Synthetix"><img src="assets/note_synthetix.svg" width="50%" alt="Synthetix: finds duplicate bug reports, fixes vague ones"></a><br>
-  <a href="https://github.com/KuantumKnight/AllWriteups"><img src="assets/note_allwriteups.svg" width="50%" alt="All Writeups: solves from other events, in one place"></a><a href="https://github.com/KuantumKnight/geometry-dash-rl-ai-agent"><img src="assets/note_geometry-dash-rl-ai-agent.svg" width="50%" alt="Geometry Dash RL: learning RL from the control loop up"></a>
+  <img src="assets/notes_head_ctf.svg?v=2" width="50%" alt="writeups"><img src="assets/notes_head_builds.svg?v=2" width="50%" alt="other builds"><br>
+  <a href="https://github.com/KuantumKnight/ExploitX_CTF_Writeups"><img src="assets/note_exploitx-ctf-writeups.svg?v=2" width="50%" alt="ExploitX 2026: 1st overall with Kn1ghts, 27 writeups"></a><a href="https://github.com/KuantumKnight/forge"><img src="assets/note_forge.svg?v=2" width="50%" alt="forge: turns scattered bug reports into one queue"></a><br>
+  <a href="https://github.com/KuantumKnight/ZeroDayHeist_CTF_Writeups"><img src="assets/note_zerodayheist-ctf-writeups.svg?v=2" width="50%" alt="ZeroDay Heist 2026: forensics, reversing, OSINT, stego, crypto"></a><a href="https://github.com/KuantumKnight/gdg_llm_sandbox"><img src="assets/note_gdg-llm-sandbox.svg?v=2" width="50%" alt="GDG LLM Sandbox: prompt-injection challenge, GDG VIT Chennai"></a><br>
+  <a href="https://github.com/KuantumKnight/BLACKBOX_Writeups"><img src="assets/note_blackbox-writeups.svg?v=2" width="50%" alt="BLACKBOX: six-module challenge, C++17 solutions"></a><a href="https://github.com/KuantumKnight/mic-event-checkin"><img src="assets/note_mic-event-checkin.svg?v=2" width="50%" alt="MIC Event Check-in: QR check-in desk that keeps working offline"></a><br>
+  <a href="https://github.com/KuantumKnight/CTF_Arsenal"><img src="assets/note_ctf-arsenal.svg?v=2" width="50%" alt="CTF Arsenal: field guides for every category"></a><a href="https://github.com/KuantumKnight/Synthetix"><img src="assets/note_synthetix.svg?v=2" width="50%" alt="Synthetix: finds duplicate bug reports, fixes vague ones"></a><br>
+  <a href="https://github.com/KuantumKnight/AllWriteups"><img src="assets/note_allwriteups.svg?v=2" width="50%" alt="All Writeups: solves from other events, in one place"></a><a href="https://github.com/KuantumKnight/geometry-dash-rl-ai-agent"><img src="assets/note_geometry-dash-rl-ai-agent.svg?v=2" width="50%" alt="Geometry Dash RL: learning RL from the control loop up"></a>
 </p>
 
-<p align="center"><img src="assets/divider.svg" width="100%" alt=""></p>
+<p align="center"><img src="assets/divider.svg?v=2" width="100%" alt=""></p>
 
-<p align="center"><img src="assets/banner_telemetry.svg" width="100%" alt="03 — record: public activity, refreshed every six hours"></p>
+<p align="center"><img src="assets/banner_telemetry.svg?v=2" width="100%" alt="03 — record: public activity, refreshed every six hours"></p>
 
 <p align="center">
-  <img src="assets/stats.svg" width="50%" alt="public repositories, stars, followers, and languages"><img src="assets/ops.svg" width="50%" alt="recent pushes">
+  <img src="assets/stats.svg?v=2" width="50%" alt="public repositories, stars, followers, and languages"><img src="assets/ops.svg?v=2" width="50%" alt="recent pushes">
 </p>
 <p align="center">
-  <img src="assets/contrib.svg" width="100%" alt="contribution calendar for the past year">
+  <img src="assets/contrib.svg?v=2" width="100%" alt="contribution calendar for the past year">
 </p>
 
-<p align="center"><img src="assets/divider.svg" width="100%" alt=""></p>
+<p align="center"><img src="assets/divider.svg?v=2" width="100%" alt=""></p>
 
-<p align="center"><img src="assets/banner_stack.svg" width="100%" alt="04 — kit: what i build with"></p>
+<p align="center"><img src="assets/banner_stack.svg?v=2" width="100%" alt="04 — kit: what i build with"></p>
 
-<p align="center"><img src="assets/stack.svg" width="100%" alt="python, pytorch, huggingface, vllm, ollama, fastapi, typescript, react, git, kali linux"></p>
+<p align="center"><img src="assets/stack.svg?v=2" width="100%" alt="python, pytorch, huggingface, vllm, ollama, fastapi, typescript, react, git, kali linux"></p>
 
-<p align="center"><img src="assets/divider.svg" width="100%" alt=""></p>
+<p align="center"><img src="assets/divider.svg?v=2" width="100%" alt=""></p>
 
-<p align="center"><img src="assets/banner_contact.svg" width="100%" alt="05 — contact"></p>
+<p align="center"><img src="assets/banner_contact.svg?v=2" width="100%" alt="05 — contact"></p>
 
-<p align="center"><img src="assets/credits.svg" width="100%" alt="end credits: written and directed by Sarvesh M"></p>
+<p align="center"><img src="assets/credits.svg?v=2" width="100%" alt="end credits: written and directed by Sarvesh M"></p>
 
 <p align="center">
   <a href="mailto:sarveshmknight@gmail.com">sarveshmknight@gmail.com</a>
